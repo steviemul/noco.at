@@ -1,0 +1,16 @@
+{
+  "name": "coat-node-coat",
+  "version": "1.0.0",
+  "description": "Coat No Coat Node application",
+  "main": "index.js",
+  "author": "steviemul <stephen.mulrennan@ntlworld.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@tensorflow/tfjs-node": "^1.2.8",
+    "express": "^4.17.1",
+    "node-fetch": "^2.6.0"
+  },
+  "scripts": {
+    "start": "node server.js"
+  }
+}

@@ -1,0 +1,9 @@
+runtime: nodejs10
+handlers:
+- url: /.*
+  script: auto
+  secure: always
+  redirect_http_response_code: 301
+
+env_variables:
+  CNC_MODEL_ROOT: "https://noco.at/model"
