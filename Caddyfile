@@ -1,0 +1,13 @@
+https://localhost:10443 {                                                                                                                                                                                                           
+                                                                                                                                                                                                                         
+  tls self_signed                                                                                                                                                                                                                         
+
+  proxy / localhost:8000 {
+    transparent
+  } 
+
+  gzip {                                                                                                                                                                                                                                  
+    level 9                                                                                                                                                                                                                               
+  }                                                                                                                                                                                                                                       
+                                                                                                                                                                                                                                             
+}

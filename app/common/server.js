@@ -7,8 +7,6 @@ const lookup = require('../weather');
 
 module.exports = (coatModel) => {
 
-  COAT_MODEL = coatModel;
-
   app.get('/model', (req, res) => {
     const data = model.retrieve(req.query.format || 'json');
 
@@ -19,19 +17,9 @@ module.exports = (coatModel) => {
 
     try {
       const query = utils.paramsToObject(req.query);
+      const prediction = model.predict(coatModel, query);
 
-      if (req.query.retrain) {
-        model.retrain(query, req.query.retrain).then(() => {
-          COAT_MODEL = model.load();
-          res.send('success');
-        });
-      }
-      else {
-        const prediction = model.predict(coatModel, query);
-
-        res.send(prediction);
-      }
-  
+      res.send(prediction);
     } catch (e) {
       res.status(400);
       res.send(e);
@@ -60,8 +48,12 @@ module.exports = (coatModel) => {
     }
   });
 
-  app.use('/', express.static(path.join(__dirname, '../static')));
+  app.get(['/forecast', '/settings'], (req, res) => {
+    res.sendFile(path.join(__dirname, '../static', 'index.html'));
+  });
 
+  app.use('/', express.static(path.join(__dirname, '../static')));
+  
   return app;
 };
 
