@@ -4,6 +4,7 @@ const app = express();
 const utils = require('./utils');
 const model = require('../tf/model');
 const lookup = require('../weather');
+const generateResults = require('./results');
 
 module.exports = (coatModel) => {
 
@@ -30,14 +31,7 @@ module.exports = (coatModel) => {
 
     if (req.query.lon && req.query.lat) {
       lookup(req.query.lon, req.query.lat, req.query.type).then((response) => {
-        const query = utils.responseToObject(response);
-
-        const prediction = model.predict(coatModel, query);
-
-        const data = {
-          'result': prediction,
-          'data': response
-        };
+        const data = generateResults(req.query.type, response, coatModel);
 
         res.send(data);
       });

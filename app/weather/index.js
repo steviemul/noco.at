@@ -4,6 +4,7 @@ const CURRENT_API_PATH = 'https://api.openweathermap.org/data/2.5/weather';
 const FORECAST_API_PATH = 'https://api.openweathermap.org/data/2.5/forecast';
 
 const APP_ID = '9d0220a01b6485088d44d4f72071819a';
+const SPEED_CONVERSION = 2.23694;
 
 const isRaining = (weather) => {
   let raining = 0;
@@ -19,21 +20,45 @@ const isRaining = (weather) => {
   return raining;
 };
 
+const transformItem = (item) => {
+  
+  return {
+    'temperature': parseInt(item.main.temp),
+    'windspeed': parseInt(item.wind.speed * SPEED_CONVERSION),
+    'rain': isRaining(item.weather),
+    'weather': item.weather,
+    'humidity': item.main.humidity,
+    'dt': item.dt
+  };
+};
+
 async function lookup(lon, lat, type = 'current') {
 
   const apiPath = (type === 'current' ? CURRENT_API_PATH : FORECAST_API_PATH);
 
   const weatherUrl = `${apiPath}?appId=${APP_ID}&lat=${lat}&lon=${lon}&units=metric`;
 
-  const response = await fetch(weatherUrl);
-  const json = await response.json();
+  const weatherResponse = await fetch(weatherUrl);
+  const json = await weatherResponse.json();
+
+  const result = (type === 'current') ? 
+    {
+      'item': transformItem(json)
+    } : 
+    {
+      'items': json.list.map(item => transformItem(item))
+    }
+    ;
+    
+  const query = {
+    lon,
+    lat,
+    city: json.city ? json.city.name : json.name
+  };
 
   return {
-    'temperature': json.main.temp,
-    'windspeed': json.wind.speed,
-    'rain': isRaining(json.weather),
-    'weather': json.weather,
-    'humidity': json.main.humidity
+    result,
+    query
   }
 }
 

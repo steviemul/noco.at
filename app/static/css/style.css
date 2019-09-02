@@ -1,22 +1,98 @@
 body {
-  background-color:#0a0412;
   display: flex;
   justify-content: center;
-  align-items: center; 
+  align-items: top; 
+  margin:0;
+  padding:0;
+  height: 100%;
 }
 
-.container {
-  min-height:600px;
-  min-width:400px;
-  border:1px solid white;
+#app {
+  width:100%;
+}
+
+#map {
+  height:100%;
+  min-height:100%;
 }
 
 .map {
   color:white;
+  width: 100%;
+  height: 100%;
+  min-height:100%;
+  min-width: 100%;
+  z-index:1000;
 }
 
-.forecast {
+.forecast-items {
+  overflow-y: auto;
+  max-width:100%;
+}
+
+.forecast-header {
+  display: flex;
+  flex-direction: row;
+  position:fixed;
+  top:100px;
+  width:100%;
+  background-color:white;
+  border-bottom:2px solid #230d41;
+}
+
+.forecast-header div {
+  flex-basis: 20%;
+  text-align: center;
+  padding:15 0;
+  font-size:2rem;
+  height:30px;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.forecast-header div i {
+  display:block;
+}
+
+.forecast-items .item {
+  display: flex;
+  flex-direction: row;
+}
+
+.forecast-items {
+  margin-top:160px;
+}
+
+.forecast-items .item div {
+  flex-basis: 20%;
+  text-align:center;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.forcast-items .item div span {
+  display:inline-block;
+}
+
+div.date {
+  background-color: #230d41;
   color:white;
+  padding:10px;
+  font-weight: bold;
+}
+
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index:1;
+  background-color: white;
+}
+
+main {
+  margin-top:100px;
 }
 
 nav ul {
@@ -25,12 +101,12 @@ nav ul {
   flex-direction: row;
   padding:0;
   margin:0;
+  list-style: none;
 }
 
 nav ul li {
   height:100%;
   flex-basis: 1/3;
-  border:1px solid white;
   text-align: center;
   flex-basis:33.33%;
 }
@@ -38,7 +114,7 @@ nav ul li {
 nav ul li a {
   height:100%;
   width:100%;
-  color:red;
+  color:#BBB;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -48,6 +124,7 @@ nav ul li a {
 
 nav ul li a.active {
   color:white;
+  background-color: #230d41;
 }
 
 .fa-chevron-right {
