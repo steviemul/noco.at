@@ -59,7 +59,7 @@ class Forecast extends React.Component {
   render () {
     return <React.Fragment>
       <div className='forecast-header'>
-        <div><span>{this.state.query.city}</span></div>
+        <div><span></span></div>
         <div><i class="wi wi-thermometer"></i></div>
         <div><i class="wi wi-strong-wind"></i></div>
         <div><i class="wi wi-cloudy"></i></div>

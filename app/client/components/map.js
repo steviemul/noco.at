@@ -28,6 +28,7 @@ class MapContainer extends React.Component {
         .then((response) => response.json())
         .then((response) => {
           console.log(response);
+          alert(response.item.result.label);
           this.props.updateCoords(lon, lat);
         }
       )

@@ -26,10 +26,12 @@ for n in range(0, 10):
       threshold = RAIN_THRESHOLD
 
     if windspeed > WINDSPEED_THRESHOLD:
-      threshold = threshold + 5
+      wind_adjustment = (windspeed - WINDSPEED_THRESHOLD) / 10;
+      threshold = threshold + wind_adjustment
 
     if humidity > HUMIDITY_THRESHOLD:
-      threshold = threshold - 5
+      humidity_adjustment = (humidity - HUMIDITY_THRESHOLD) / 10;
+      threshold = threshold - humidity_adjustment
 
     result = 1
 
