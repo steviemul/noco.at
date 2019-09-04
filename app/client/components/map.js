@@ -17,7 +17,8 @@ class MapContainer extends React.Component {
   initMap() {
     const map = new google.maps.Map(document.getElementById('map'), {
       zoom: 4,
-      draggableCursor: 'crosshair'
+      draggableCursor: 'crosshair',
+      gestureHandling: 'greedy'
     });
 
     if (navigator.geolocation) {
