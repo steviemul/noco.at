@@ -1,5 +1,7 @@
 const codes = require('./codes');
 const fetch = require('node-fetch');
+const HttpsProxyAgent = require('https-proxy-agent');
+
 const CURRENT_API_PATH = 'https://api.openweathermap.org/data/2.5/weather';
 const FORECAST_API_PATH = 'https://api.openweathermap.org/data/2.5/forecast';
 
@@ -38,7 +40,13 @@ async function lookup(lon, lat, type = 'current') {
 
   const weatherUrl = `${apiPath}?appId=${APP_ID}&lat=${lat}&lon=${lon}&units=metric`;
 
-  const weatherResponse = await fetch(weatherUrl);
+  const options = {};
+
+  if (process.env.HTTP_PROXY) {
+    options.agent = new HttpsProxyAgent(process.env.HTTP_PROXY);
+  }
+
+  const weatherResponse = await fetch(weatherUrl, options);
   const json = await weatherResponse.json();
 
   const result = (type === 'current') ? 
