@@ -10,13 +10,15 @@ const itemToArray = (item) => {
     item.windspeed,
     item.rain,
     item.humidity,
+    item.tolerance,
+    item.activity,
     item.result
   ]
 };
 
 const formatCSV = (data) => {
 
-  let csv = 'temperature,windspeed,rain,humidity,coat\n';
+  let csv = 'temperature,windspeed,rain,humidity,tolerance,activity,coat\n';
 
   csv = csv + data.reduce((buffer, item) => {
     return buffer + itemToArray(item).join(',') + '\n';

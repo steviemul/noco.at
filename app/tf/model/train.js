@@ -13,7 +13,9 @@ const transformData = ({
     xs.temperature,
     xs.windspeed,
     xs.rain,
-    xs.humidity
+    xs.humidity,
+    xs.tolerance,
+    xs.activity
   ];
 
   return {
@@ -43,7 +45,7 @@ const createModel = () => {
   model.add(tf.layers.dense({
     units: 100,
     activation: 'relu',
-    inputShape: [4]
+    inputShape: [6]
   }));
 
   model.add(tf.layers.dense({

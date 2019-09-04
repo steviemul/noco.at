@@ -15,7 +15,7 @@ const paramToValidValue = (query, param, errors) => {
   }
 };
 
-const paramsToObject = (query) => {
+const paramsToObject = (query, tolerance = 0, activity = 0) => {
   
   const errors = [];
   
@@ -37,15 +37,17 @@ const paramsToObject = (query) => {
     }
   }
   
-  return [temp, wind, rain, humidity];
+  return [temp, wind, rain, humidity, tolerance, activity];
 };
 
-const responseToObject = (response) => {
+const responseToObject = (response, tolerance, activity) => {
   return [
     response.temperature,
     response.windspeed,
     response.rain,
-    response.humidity
+    response.humidity,
+    tolerance,
+    activity
   ]
 };
 

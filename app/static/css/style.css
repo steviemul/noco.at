@@ -32,7 +32,7 @@ body {
   height: 100%;
   min-height:100%;
   min-width: 100%;
-  background-color: #230d41;
+  background-color: #233237;
   position: absolute;
   display:flex;
   justify-content: center;
@@ -53,7 +53,7 @@ body {
   top:100px;
   width:100%;
   background-color:white;
-  border-bottom:2px solid #230d41;
+  border-bottom:2px solid #233237;
 }
 
 .forecast-header div {
@@ -93,7 +93,7 @@ body {
 }
 
 div.date {
-  background-color: #230d41;
+  background-color: #233237;
   color:white;
   padding:10px;
   font-weight: bold;
@@ -140,7 +140,7 @@ nav ul li a {
 
 nav ul li a.active {
   color:white;
-  background-color: #230d41;
+  background-color: #233237;
 }
 
 .fa-chevron-right {

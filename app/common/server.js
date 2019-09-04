@@ -31,7 +31,7 @@ module.exports = (coatModel) => {
 
     if (req.query.lon && req.query.lat) {
       lookup(req.query.lon, req.query.lat, req.query.type).then((response) => {
-        const data = generateResults(req.query.type, response, coatModel);
+        const data = generateResults(req, response, coatModel);
 
         res.send(data);
       });

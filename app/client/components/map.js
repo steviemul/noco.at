@@ -39,7 +39,7 @@ class MapContainer extends React.Component {
 
   lookup(lon, lat) {
 
-    fetch(`/api/lookup?lon=${lon}&lat=${lat}`)
+    fetch(`/api/lookup?lon=${lon}&lat=${lat}&a=0&t=0`)
       .then((response) => response.json())
       .then((response) => {
         console.log(response);
