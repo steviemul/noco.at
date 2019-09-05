@@ -29,8 +29,8 @@ module.exports = (coatModel) => {
 
   app.get('/api/lookup', (req, res) => {
 
-    if (req.query.lon && req.query.lat) {
-      lookup(req.query.lon, req.query.lat, req.query.type).then((response) => {
+    if ((req.query.lon && req.query.lat) || req.query.city) {
+      lookup(req).then((response) => {
         const data = generateResults(req, response, coatModel);
 
         res.send(data);
@@ -38,7 +38,7 @@ module.exports = (coatModel) => {
     }
     else {
       res.status(400);
-      res.send('Longitute and latitude parmaters not specified');
+      res.send('Invalid query, you must specify longtiture and latitude or a city name');
     }
   });
 

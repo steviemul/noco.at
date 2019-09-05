@@ -1,3 +1,8 @@
+/**
+ * This is a list of weather codes that indicate rain.
+ * 
+ * sourced from https://openweathermap.org/weather-conditions
+ */
 const RAIN_CODES = {
   500: 'light rain',
   501: 'moderate rain',

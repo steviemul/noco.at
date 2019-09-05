@@ -6,8 +6,10 @@ const PORT = process.env.PORT || 8000;
 
 async function start() {
 
+  // load out saved tensorflow model.
   const savedModel = await model.load();
 
+  // createServer returns an express app.
   const app = createServer(savedModel);
 
   app.listen(PORT, () => {
