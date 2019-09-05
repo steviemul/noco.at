@@ -22,11 +22,15 @@ const icon = (title, icon) => {
   return <img src={url} alt={title} title={title}></img>
 }
 
-const formatDate = (dt) => {
+const getDay = (dt) => {
   const date = new Date(dt * 1000);
+  return DAYS[date.getDay()];
+}
 
-  return DAYS[date.getDay()] + ' ' + (padDigit(date.getHours() + 1)) + ':' + padDigit(date.getMinutes());
-};
+const getTime = (dt) => {
+  const date = new Date(dt * 1000);
+  return (padDigit(date.getHours() + 1)) + ':' + padDigit(date.getMinutes());
+}
 
 class Forecast extends React.Component {
 
@@ -41,6 +45,7 @@ class Forecast extends React.Component {
     }
 
     this.loadForecast = this.loadForecast.bind(this);
+    this.transformItems = this.transformItems.bind(this);
   }
 
   loadForecast() {
@@ -56,29 +61,54 @@ class Forecast extends React.Component {
     this.loadForecast();
   }
 
+  transformItems() {
+    const groups = [];
+
+    this.state.items.forEach(item => {
+      
+      const day = getDay(item.data.dt);
+      const time = getTime(item.data.dt);
+
+
+      if (groups.length === 0 || groups[groups.length-1].day !== day) {
+        groups.push({
+          day:day,
+          items:[]
+        });
+      }
+
+      item.data.time = time;
+      groups[groups.length-1].items.push(item); 
+    });
+
+    return groups;
+  }
+
   render () {
     return <React.Fragment>
-      <div className='forecast-header'>
-        <div><span></span></div>
-        <div><i class="wi wi-thermometer"></i></div>
-        <div><i class="wi wi-strong-wind"></i></div>
-        <div><i class="wi wi-cloudy"></i></div>
-        <div><i class="wi wi-humidity"></i></div>
-      </div>
-      <div className='forecast-items'>
-        {this.state.items.map(item => 
-          <React.Fragment>
-            <div className='date'>{formatDate(item.data.dt)}</div>
-            <div className='item'>
-              <div><span>{item.result.label}</span></div>
-              <div><span>{item.data.temperature}&#8451;</span></div>
-              <div><span>{item.data.windspeed}mph</span></div>
-              <div><span>{icon(item.data.weather[0].description, item.data.weather[0].icon)}</span></div>
-              <div><span>{item.data.humidity}%</span></div>
-            </div>
-          </React.Fragment>
-        )}
-      </div>
+      <table>
+
+        <tbody>
+         {this.transformItems().map((item) => 
+            <React.Fragment key={item.day}>
+              <tr className='day-header'>
+                <td colSpan='6'>{item.day}</td>
+              </tr>
+              {item.items.map((item, index) =>
+                <tr key={item.data.dt} className={(index % 2 === 0 ? 'alt-row' : '')}>
+                  <td>{getTime(item.data.dt)}</td>
+                  <td>{item.data.temperature}&#8451;</td>
+                  <td>{item.data.windspeed}mph</td>
+                  <td>{icon(item.data.weather[0].description, item.data.weather[0].icon)}</td>
+                  <td>{item.data.humidity}%</td>
+                  <td className='coat-no-coat'>{item.result.label}</td>
+                </tr>
+              )}
+            </React.Fragment>
+          )}
+        </tbody>
+      </table>
+  
     </React.Fragment>
   }
 }

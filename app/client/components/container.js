@@ -23,20 +23,26 @@ class Container extends React.Component {
 
   render() {
     return <Router>
-      <div className='container'>
-        <nav>
-          <ul>
-            <li>
-              <NavLink to="/" exact={true} activeClassName="active"><i class="fa fa-map-marker fa-3x"></i></NavLink>
-            </li>
-            <li>
-              <NavLink to="/forecast" activeClassName="active"><i class="fa fa-chevron-right fa-3x"></i></NavLink>
-            </li>
-            <li>
-              <NavLink to="/settings" activeClassName="active"><i class="fa fa-cog fa-3x"></i></NavLink>
-            </li>
-          </ul>
-        </nav>
+      <React.Fragment>
+        <header>
+          <div className="navbar-fixed">
+            <nav className='blue lighten-3'>
+              <div className="nav-wrapper">
+                <ul className="row">
+                  <li className="col s4">
+                    <NavLink to="/" exact={true} activeClassName="active"><i className="large material-icons">my_location</i></NavLink>
+                  </li>
+                  <li className="col s4">
+                    <NavLink to="/forecast" activeClassName="active"><i className="large material-icons">fast_forward</i></NavLink>
+                  </li>
+                  <li className="col s4">
+                    <NavLink to="/settings" activeClassName="active"><i className="large material-icons">settings</i></NavLink>
+                  </li>
+                </ul>
+              </div>
+            </nav>
+          </div>
+        </header>
         <main>
           <Route 
             path="/" exact 
@@ -54,7 +60,7 @@ class Container extends React.Component {
           />
 
         </main>
-      </div>
+      </React.Fragment>
     </Router>;
   }
 } 

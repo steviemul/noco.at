@@ -24,6 +24,7 @@
   },
   "scripts": {
     "start": "node server.js",
-    "build": "webpack --mode=production"
+    "build": "webpack --mode=production",
+    "watch": "webpack --watch --mode=development"
   }
 }

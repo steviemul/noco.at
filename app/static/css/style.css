@@ -1,28 +1,34 @@
-body {
-  display: flex;
-  justify-content: center;
-  align-items: top; 
+
+nav li {
+  text-align: center;
   margin:0;
   padding:0;
-  height: 100%;
+}
+
+nav li col {
+  padding:0;
+}
+
+nav i.material-icons {
+  font-size:36px;
 }
 
 #app {
-  width:100%;
+  width: 100%;
 }
 
 #map {
-  height:100%;
-  min-height:100%;
+  height: 100%;
+  min-height: 100%;
   position: absolute;
 }
 
 .front {
-  z-index:1;
+  z-index: 1;
 }
 
 .map {
-  color:white;
+  color: white;
   width: 100%;
   min-width: 100%;
 }
@@ -30,119 +36,28 @@ body {
 #answer {
   width: 100%;
   height: 100%;
-  min-height:100%;
+  min-height: 100%;
   min-width: 100%;
-  background-color: #233237;
   position: absolute;
-  display:flex;
+  display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+.card-title {
+  text-transform: capitalize;
+}
+
+.coat-no-coat {
+  text-transform: capitalize;
+}
+
+.day-header {
+  background-color: #0d47a1;
   color:white;
 }
 
-.forecast-items {
-  overflow-y: auto;
-  max-width:100%;
-}
-
-.forecast-header {
-  display: flex;
-  flex-direction: row;
-  position:fixed;
-  top:100px;
-  width:100%;
-  background-color:white;
-  border-bottom:2px solid #233237;
-}
-
-.forecast-header div {
-  flex-basis: 20%;
-  text-align: center;
-  padding:15 0;
-  font-size:2rem;
-  height:30px;
-  display:flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.forecast-header div i {
-  display:block;
-}
-
-.forecast-items .item {
-  display: flex;
-  flex-direction: row;
-}
-
-.forecast-items {
-  margin-top:160px;
-}
-
-.forecast-items .item div {
-  flex-basis: 20%;
-  text-align:center;
-  display:flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.forcast-items .item div span {
-  display:inline-block;
-}
-
-div.date {
-  background-color: #233237;
-  color:white;
-  padding:10px;
-  font-weight: bold;
-}
-
-nav {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  z-index:1;
-  background-color: white;
-}
-
-main {
-  margin-top:100px;
-}
-
-nav ul {
-  height:100px;
-  display:flex;
-  flex-direction: row;
-  padding:0;
-  margin:0;
-  list-style: none;
-}
-
-nav ul li {
-  height:100%;
-  flex-basis: 1/3;
-  text-align: center;
-  flex-basis:33.33%;
-}
-
-nav ul li a {
-  height:100%;
-  width:100%;
-  color:#BBB;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  text-decoration: none;
-}
-
-nav ul li a.active {
-  color:white;
-  background-color: #233237;
-}
-
-.fa-chevron-right {
-  padding-left:10px;
+.alt-row {
+  background-color: rgba(242, 242, 242, 0.5);
 }
