@@ -1,17 +1,24 @@
 import React from 'react';
 
+const icon = (title, icon) => {
+  const url = `http://openweathermap.org/img/wn/${icon}.png`;
+
+  return <img src={url} alt={title} title={title}></img>
+}
+
 class MapContainer extends React.Component {
 
   constructor(props) {
     super(props);
 
     this.state = {
-      status: null
+      item: null
     };
 
     this.initMap = this.initMap.bind(this);
     this.reset = this.reset.bind(this);
     this.lookup = this.lookup.bind(this);
+    this.sendCorrection = this.sendCorrection.bind(this);
   }
 
   initMap() {
@@ -44,9 +51,7 @@ class MapContainer extends React.Component {
       .then((response) => response.json())
       .then((response) => {
         console.log(response);
-        this.setState({
-          status: response.item.result.label
-        });
+        this.setState(response);
 
         this.props.updateCoords(lon, lat);
       }
@@ -55,7 +60,31 @@ class MapContainer extends React.Component {
 
   reset() {
     this.setState({
-      status: null
+      item: null
+    });
+  }
+
+  sendCorrection() {
+
+    fetch(`/api/correction`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(this.state)
+    })
+    .then(response => {
+      if (response.status === 202) {
+        console.log('correction send');
+      }
+      else  {
+        console.log('correction not sent');
+      }
+
+      this.reset();
+    })
+    .catch (e => {
+      console.error('error sending correction', e);
     });
   }
 
@@ -64,22 +93,34 @@ class MapContainer extends React.Component {
   }
 
   render() {
-    return <div>
-      <div className={'map ' + (this.state.status === null ? 'front' : '')} id='map'></div>
-      <div className={'answer ' + (this.state.status !== null ? 'front' : '')} id='answer'>
-        <div className="card blue-grey darken-1">
-          <div className="card-content white-text">
-            <span className="card-title">{this.state.status}</span>
-            <p></p>
+    return (
+      <div>
+        <div className={'map ' + (this.state.item === null ? 'front' : '')} id='map'></div>
+        <div className={'answer ' + (this.state.item !== null ? 'front' : '')} id='answer'>
+          {this.state.item && (
+            <div className="card blue-grey darken-1">
+            <div className="card-content white-text">
+              <span className="card-title">{this.state.item.result.label}</span>
+              <table>
+                <tbody>
+                  <tr className='answer-details'>
+                    <td>{this.state.item.data.temperature}&#8451;</td>
+                    <td>{this.state.item.data.windspeed}mph</td>
+                    <td>{icon(this.state.item.data.weather[0].description, this.state.item.data.weather[0].icon)}</td>
+                    <td>{this.state.item.data.humidity}%</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div className="card-action z-depth-5">
+              <a href="#" onClick={this.reset}>Close</a>
+              <a href="#" onClick={this.sendCorrection}>Correct this prediction</a>
+            </div>
           </div>
-          <div className="card-action z-depth-5">
-            <a href="#" onClick={this.reset}>Close</a>
-            <a href="#">Correct this prediction</a>
-          </div>
+          ) || null} 
         </div>
       </div>
-    </div> 
-    
+    );
   }
 }
 

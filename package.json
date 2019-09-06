@@ -9,6 +9,7 @@
     "@tensorflow/tfjs-node": "^1.2.8",
     "express": "^4.17.1",
     "https-proxy-agent": "^2.2.2",
+    "jsonwebtoken": "^8.5.1",
     "node-fetch": "^2.6.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",

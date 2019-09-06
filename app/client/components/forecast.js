@@ -71,8 +71,11 @@ class Forecast extends React.Component {
 
 
       if (groups.length === 0 || groups[groups.length-1].day !== day) {
+        const label = (groups.length === 0) ? 'today' : day;
+
         groups.push({
-          day:day,
+          day,
+          label,
           items:[]
         });
       }
@@ -91,8 +94,8 @@ class Forecast extends React.Component {
         <tbody>
          {this.transformItems().map((item) => 
             <React.Fragment key={item.day}>
-              <tr className='day-header'>
-                <td colSpan='6'>{item.day}</td>
+              <tr className='day-header blue-grey darken-1'>
+                <td colSpan='6'>{item.label}</td>
               </tr>
               {item.items.map((item, index) =>
                 <tr key={item.data.dt} className={(index % 2 === 0 ? 'alt-row' : '')}>

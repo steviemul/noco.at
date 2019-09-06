@@ -5,6 +5,10 @@ const utils = require('./utils');
 const model = require('../tf/model');
 const lookup = require('../weather');
 const generateResults = require('./results');
+const security = require('./security');
+const request = require('./request');
+
+ const KEYS = security.genKeys();
 
 module.exports = (coatModel) => {
 
@@ -12,6 +16,20 @@ module.exports = (coatModel) => {
     const data = model.retrieve(req.query.format || 'json');
 
     res.send(data);
+  });
+
+  app.post('/api/correction', (req, res) => {
+
+    const body = req.body;
+
+    const verifiedContent = request.verifyRequest(body.token, KEYS);
+
+    console.log(verifiedContent);
+
+    res.status(202);
+    res.send({
+      status: 'Correction accepted'
+    });
   });
 
   app.get('/api/prediction', (req, res) => {
@@ -31,7 +49,8 @@ module.exports = (coatModel) => {
 
     if ((req.query.lon && req.query.lat) || req.query.city) {
       lookup(req).then((response) => {
-        const data = generateResults(req, response, coatModel);
+        const data = request.addTokenToLookupRequest(
+          generateResults(req, response, coatModel), KEYS);
 
         res.send(data);
       });
@@ -47,6 +66,7 @@ module.exports = (coatModel) => {
   });
 
   app.use('/', express.static(path.join(__dirname, '../static')));
+  app.use(express.json());
   
   return app;
 };

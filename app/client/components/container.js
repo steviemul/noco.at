@@ -26,7 +26,7 @@ class Container extends React.Component {
       <React.Fragment>
         <header>
           <div className="navbar-fixed">
-            <nav className='blue lighten-3'>
+            <nav>
               <div className="nav-wrapper">
                 <ul className="row">
                   <li className="col s4">
