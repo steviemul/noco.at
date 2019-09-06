@@ -11,4 +11,4 @@ ADD webpack.config.js /noco.at/webpack.config.js
 RUN cd /noco.at
 RUN npm install && npm run build
 
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "debug"]

@@ -1,6 +1,5 @@
 const express = require('express');
 const path = require('path');
-const app = express();
 const utils = require('./utils');
 const model = require('../tf/model');
 const lookup = require('../weather');
@@ -8,9 +7,20 @@ const generateResults = require('./results');
 const security = require('./security');
 const request = require('./request');
 
- const KEYS = security.genKeys();
+const KEYS = security.genKeys();
 
-module.exports = (coatModel) => {
+let ACTIVE_MODEL;
+
+const updateModel = (activeModel) => {
+  ACTIVE_MODEL = activeModel;
+}
+
+const createServer = (activeModel) => {
+  ACTIVE_MODEL = activeModel;
+
+  const app = express();
+  
+  app.use(express.json());
 
   app.get('/model', (req, res) => {
     const data = model.retrieve(req.query.format || 'json');
@@ -24,7 +34,9 @@ module.exports = (coatModel) => {
 
     const verifiedContent = request.verifyRequest(body.token, KEYS);
 
-    console.log(verifiedContent);
+    const correction = body.item.result.label === 'coat' ? 0 : 1;
+
+    model.correct(verifiedContent, correction);
 
     res.status(202);
     res.send({
@@ -36,7 +48,7 @@ module.exports = (coatModel) => {
 
     try {
       const query = utils.paramsToObject(req.query);
-      const prediction = model.predict(coatModel, query);
+      const prediction = model.predict(ACTIVE_MODEL, query);
 
       res.send(prediction);
     } catch (e) {
@@ -50,12 +62,11 @@ module.exports = (coatModel) => {
     if ((req.query.lon && req.query.lat) || req.query.city) {
       lookup(req).then((response) => {
         const data = request.addTokenToLookupRequest(
-          generateResults(req, response, coatModel), KEYS);
+          generateResults(req, response, ACTIVE_MODEL), KEYS);
 
         res.send(data);
       });
-    }
-    else {
+    } else {
       res.status(400);
       res.send('Invalid query, you must specify longtiture and latitude or a city name');
     }
@@ -66,9 +77,13 @@ module.exports = (coatModel) => {
   });
 
   app.use('/', express.static(path.join(__dirname, '../static')));
-  app.use(express.json());
-  
+
   return app;
+};
+
+module.exports = {
+  updateModel,
+  createServer
 };
 
 
