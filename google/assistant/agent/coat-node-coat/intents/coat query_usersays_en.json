@@ -1,0 +1,38 @@
+[
+  {
+    "id": "91a51ad6-a280-46d1-b2cf-d034522b6680",
+    "data": [
+      {
+        "text": "coat, no coat ?",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "b8948072-18b1-4c6f-b8aa-0a148435fb01",
+    "data": [
+      {
+        "text": "should I wear a coat",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "bbff78ca-8bcb-426e-a6c6-72b5d7df41a8",
+    "data": [
+      {
+        "text": "Do I need a coat",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  }
+]

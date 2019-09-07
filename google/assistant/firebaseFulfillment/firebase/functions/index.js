@@ -1,20 +1,21 @@
 'use strict';
 
-// Import the Dialogflow module from the Actions on Google client library.
 const {
   dialogflow,
-  Permission
+  Permission,
+  Suggestions
 } = require('actions-on-google');
 
 // Import the firebase-functions package for deployment.
 const functions = require('firebase-functions');
 
+const {cityQuery, locationQuery} = require('./utils/queries');
+const {buildReply} = require('./utils/response');
+
 // Instantiate the Dialogflow client.
 const app = dialogflow({
   debug: true
 });
-
-const fetch = require('node-fetch');
 
 const getLocation = (conv) => {
   const permissions = ['NAME'];
@@ -29,71 +30,56 @@ const getLocation = (conv) => {
     context,
     permissions,
   };
+
   conv.ask(new Permission(options));
 };
 
-const buildResponse = (name, response) => {
-  let result = `Hi ${name}.`;
 
-  const rainInference = response.item.data.rain === 0 ? ' not ' : '';
+app.intent('welcome intent', (conv) => {
+  const name = conv.user.storage.userName;
 
-  result = result + `It's ${rainInference} raining in ${response.query.city} at the moment. `;
-
-  result = result + `It's currently ${response.item.data.temperature} degrees celsius`;
-
-  result = result + ` with a relative humidity of ${response.item.data.humidity} percent.`;
-
-  if (response.item.result.label === 'coat') {
-    result = result + 'You should wear a coat.';
+  if (!name) {
+    getLocation(conv);
   } else {
-    result = result + 'You don\'t need a coat';
-
-    if (rainInference === 1) {
-      result = result + ' but maybe take an umbrella with you.';
-    } else {
-      result = result +'.';
-    }
+    conv.close('See ya sport');
   }
-
-  result = result + ' Have a nice day.';
-
-  return result;
-};
+});
 
 // Handle the Dialogflow intent named 'favorite color'.
 // The intent collects a parameter named 'color'.
-app.intent('favorite color', (conv, {
-  color
-}, confirmationGranted) => {
-  const {
-    location
-  } = conv.device;
-  const {
-    name
-  } = conv.user;
+app.intent('coat query', (conv, {}, confirmationGranted) => {
+  if (!confirmationGranted) {
+    conv.ask('Ok no problem. Where are you ?');
+    conv.ask(new Suggestions('Belfast', 'Dublin', 'London', 'New York', 'Paris', 'Rome'));
+  } else {
+    const {location} = conv.device;
+    const {name} = conv.user;
 
-  if (location && name) {
     const lng = location.coordinates.longitude;
     const lat = location.coordinates.latitude;
 
-    const url = `https://coat-node-coat.appspot.com/api/lookup?lon=${lng}&lat=${lat}`;
-
-    console.log('Calling ' + url);
-
     return new Promise((resolve, reject) => {
-      fetch(url)
-        .then((response) => response.json())
-        .then((response) => {
-          const reply = buildResponse(name.given, response);
+      locationQuery(lng, lat).then((response) => {
+        const reply = buildReply(response, name.given);
 
-          conv.close(reply);
+        conv.close(reply);
 
-          resolve();
-        });
+        resolve();
+      });
     });
-  } else {
-    getLocation(conv);
   }
+});
+
+app.intent('city query', (conv, {city}) => {
+  return new Promise((resolve, reject) => {
+    cityQuery(city).then((response) => {
+      const reply = buildReply(response);
+
+      conv.close(reply);
+
+      resolve();
+    });
+  });
 });
 
 // Set the DialogflowApp object to handle the HTTPS POST request.
