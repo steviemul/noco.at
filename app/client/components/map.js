@@ -1,10 +1,41 @@
 import React from 'react';
 
 const icon = (title, icon) => {
-  const url = `http://openweathermap.org/img/wn/${icon}.png`;
+  const url = `https://openweathermap.org/img/wn/${icon}.png`;
 
   return <img src={url} alt={title} title={title}></img>
 }
+
+const MARKERS_KEY = 'cnc_markers';
+
+const getMarkers = () => {
+
+  const markers = new Set();
+
+  const storedValues = localStorage.getItem(MARKERS_KEY);
+
+  if (storedValues) {
+    const markersCollection = JSON.parse(storedValues);
+
+    if (markersCollection.forEach) {
+      markersCollection.forEach(marker => {
+        markers.add(marker);
+      });
+    }
+  }
+
+  return markers;
+};
+
+const saveMarkers = (markers) => {
+  const output = [];
+
+  for (let value of markers) {
+    output.push(value);
+  }
+
+  localStorage.setItem(MARKERS_KEY, JSON.stringify(output));
+};
 
 class MapContainer extends React.Component {
 
@@ -15,10 +46,13 @@ class MapContainer extends React.Component {
       item: null
     };
 
+    this.markers = getMarkers();
+
     this.initMap = this.initMap.bind(this);
     this.reset = this.reset.bind(this);
     this.lookup = this.lookup.bind(this);
     this.sendCorrection = this.sendCorrection.bind(this);
+    this.saveMarker = this.saveMarker.bind(this);
   }
 
   initMap() {
@@ -43,6 +77,29 @@ class MapContainer extends React.Component {
       
       this.lookup(lon, lat);
     });
+
+    for (let value of this.markers) {
+      const coords = value.split('|');
+      const lon = parseFloat(coords[0]), lat = parseFloat(coords[1]);
+
+      const marker = new google.maps.Marker({
+        position: {lat: lat, lng:lon},
+        map: this.map
+      });
+
+      marker.addListener('click', () => {
+        this.lookup(lon, lat);
+      });
+    }
+  }
+
+  saveMarker(lon, lat) {
+    if (this.props.saveMarkers) {
+      const value = lon + '|' + lat;
+
+      this.markers.add(value);
+      saveMarkers(this.markers);
+    }
   }
 
   lookup(lon, lat) {
@@ -55,14 +112,19 @@ class MapContainer extends React.Component {
 
         this.props.updateCoords(lon, lat);
 
-        const marker = new google.maps.Marker({
-          position: {lat: lat, lng:lon},
-          map: this.map
-        });
+        if (!this.markers.has(lon + '|' + lat)) {
+          const marker = new google.maps.Marker({
+            position: {lat: lat, lng:lon},
+            map: this.map
+          });
 
-        marker.addListener('click', () => {
-          this.lookup(lon, lat);
-        });
+          marker.addListener('click', () => {
+            this.lookup(lon, lat);
+          });
+
+          this.saveMarker(lon, lat);
+        }
+        
       }
     );
   }

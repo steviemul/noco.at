@@ -101,10 +101,7 @@ td {
 }
 
 .settings {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  min-height:80%;
 }
 
 .nav-wrapper .row {
@@ -113,4 +110,8 @@ td {
 
 .nav-wrapper .row li {
   padding: 0;
+}
+
+.dropdown-content li>span {
+  color:black;
 }

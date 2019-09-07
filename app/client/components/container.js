@@ -5,17 +5,60 @@ import Settings from './settings';
 
 import {BrowserRouter as Router, Route, NavLink} from 'react-router-dom';
 
+const PREFERENCES_KEY = 'cnc_preferences';
+
+const getPreferences = () => {
+
+  const preferences = localStorage.getItem(PREFERENCES_KEY);
+
+  if (preferences) {
+    return JSON.parse(preferences);
+  }
+
+  return {
+    saveMarkers: false,
+    temperaturePreferences: 2
+  }
+};
+
+const savePreferences = (values) => {
+
+  const preferences = {
+    saveMarkers: values.saveMarkers,
+    temperaturePreferences: values.temperaturePreferences
+  };
+
+  localStorage.setItem(PREFERENCES_KEY, JSON.stringify(preferences));
+};
+
 class Container extends React.Component {
 
   constructor(props) {
     super(props);
 
-    this.state = {lon:0, lat:0};
+    this.state = {
+      lon:0,
+      lat:0,
+      ...getPreferences()
+    };
+
     this.updateCoords = this.updateCoords.bind(this);
+    this.updatePreferences = this.updatePreferences.bind(this);
+  }
+
+  updatePreferences(saveMarkers, temperaturePreferences) {
+    this.setState({
+      ...this.state,
+      saveMarkers,
+      temperaturePreferences
+    }, () => {
+      savePreferences(this.state);
+    });
   }
 
   updateCoords(lon, lat) {
     this.setState({
+      ...this.state,
       lon,
       lat
     });
@@ -46,7 +89,12 @@ class Container extends React.Component {
         <main>
           <Route 
             path="/" exact 
-            render={(props) => <MapContainer {...props} lon={this.state.lon} lat={this.state.lat} updateCoords={this.updateCoords} />}
+            render={(props) => <MapContainer {...props} 
+              lon={this.state.lon} 
+              lat={this.state.lat}
+              saveMarkers={this.state.saveMarkers}
+              temperaturePreferences={this.state.temperaturePreferences}
+              updateCoords={this.updateCoords} />}
           />
 
           <Route 
@@ -56,7 +104,14 @@ class Container extends React.Component {
 
           <Route 
             path="/settings" exact 
-            render={(props) => <Settings {...props} lon={this.state.lon} lat={this.state.lat} updateCoords={this.updateCoords} />} 
+            render={(props) => <Settings {...props} 
+              lon={this.state.lon} 
+              lat={this.state.lat} 
+              saveMarkers={this.state.saveMarkers}
+              temperaturePreferences={this.state.temperaturePreferences}
+              updateCoords={this.updateCoords} 
+              updatePreferences={this.updatePreferences}
+              />} 
           />
 
         </main>

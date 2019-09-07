@@ -1,0 +1,26 @@
+{
+  "name": "Coat / No Coat",
+  "short_name": "Coat / No Coat",
+  "icons": [
+    {
+      "src": "images/logo42x42.png",
+      "sizes": "42x42",
+      "type": "image/png"
+    },
+    {
+      "src": "images/logo72x72.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "images/logo192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ],
+  "start_url": "index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#90a4ae",
+  "theme_color": "90a4ae#"
+}

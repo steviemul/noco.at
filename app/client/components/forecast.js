@@ -17,7 +17,7 @@ const padDigit = (input) => {
 }
 
 const icon = (title, icon) => {
-  const url = `http://openweathermap.org/img/wn/${icon}.png`;
+  const url = `https://openweathermap.org/img/wn/${icon}.png`;
 
   return <img src={url} alt={title} title={title}></img>
 }
