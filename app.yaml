@@ -7,3 +7,4 @@ handlers:
 
 env_variables:
   CNC_MODEL_ROOT: "https://noco.at/model"
+  CNC_WATCH_INTERVAL : 1800000

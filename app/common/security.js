@@ -1,8 +1,10 @@
 const crypto = require('crypto');
+const generator = require('generate-password');
 
 const genKeys = () => {
-  const buf = crypto.randomBytes(48);
-  const passphrase = 'steve'
+  const passphrase = generator.generate({
+    length:30
+  });
 
   const { publicKey, privateKey } = crypto.generateKeyPairSync('rsa', {
     modulusLength: 4096,

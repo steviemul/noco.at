@@ -6,6 +6,7 @@ const lookup = require('../weather');
 const generateResults = require('./results');
 const security = require('./security');
 const request = require('./request');
+const watch = require('./watch');
 
 const KEYS = security.genKeys();
 
@@ -77,6 +78,8 @@ const createServer = (activeModel) => {
   });
 
   app.use('/', express.static(path.join(__dirname, '../static')));
+
+  watch(updateModel);
 
   return app;
 };

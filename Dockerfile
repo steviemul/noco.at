@@ -3,6 +3,7 @@ FROM node:12
 WORKDIR /noco.at
 
 ADD app /noco.at/app
+ADD scripts /noco.at/scripts
 ADD .babelrc /noco.at/.babelrc
 ADD package.json /noco.at/package.json
 ADD server.js /noco.at/server.js

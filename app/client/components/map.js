@@ -22,7 +22,7 @@ class MapContainer extends React.Component {
   }
 
   initMap() {
-    const map = new google.maps.Map(document.getElementById('map'), {
+    this.map = new google.maps.Map(document.getElementById('map'), {
       zoom: 4,
       draggableCursor: 'crosshair',
       gestureHandling: 'greedy'
@@ -31,13 +31,13 @@ class MapContainer extends React.Component {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition( (position) => {
         const myLatlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-        map.setCenter(myLatlng);
+        this.map.setCenter(myLatlng);
         this.props.updateCoords(position.coords.longitude, position.coords.latitude);
         this.lookup(position.coords.longitude, position.coords.latitude);
       });
     }
 
-    map.addListener('click', (location) => {
+    this.map.addListener('click', (location) => {
       const lon = location.latLng.lng();
       const lat = location.latLng.lat();
       
@@ -54,8 +54,17 @@ class MapContainer extends React.Component {
         this.setState(response);
 
         this.props.updateCoords(lon, lat);
+
+        const marker = new google.maps.Marker({
+          position: {lat: lat, lng:lon},
+          map: this.map
+        });
+
+        marker.addListener('click', () => {
+          this.lookup(lon, lat);
+        });
       }
-      )
+    );
   }
 
   reset() {
@@ -100,7 +109,7 @@ class MapContainer extends React.Component {
           {this.state.item && (
             <div className="card blue-grey darken-1">
             <div className="card-content white-text">
-              <span className="card-title">{this.state.item.result.label}</span>
+              <span className="card-title">{this.state.item.result.label + ' (' + this.state.query.city + ')'}</span>
               <table>
                 <tbody>
                   <tr className='answer-details'>

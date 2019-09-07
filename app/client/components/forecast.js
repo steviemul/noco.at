@@ -94,7 +94,7 @@ class Forecast extends React.Component {
         <tbody>
          {this.transformItems().map((item) => 
             <React.Fragment key={item.day}>
-              <tr className='day-header blue-grey darken-1'>
+              <tr className='day-header blue-grey darken-1 z-depth-5'>
                 <td colSpan='6'>{item.label}</td>
               </tr>
               {item.items.map((item, index) =>

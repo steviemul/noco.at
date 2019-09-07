@@ -56,6 +56,10 @@ nav i.material-icons {
   color:white;
 }
 
+.answer-details td:first-child {
+  text-align: left;
+}
+
 .coat-no-coat {
   text-transform: capitalize;
 }
@@ -66,8 +70,20 @@ nav i.material-icons {
   font-size:2rem;
 }
 
+.day-header td {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
 td {
   text-align: center;
+  line-height:20px;
+}
+
+.map-info {
+  color:#546e7a;
+  font-size:20px;
+  font-weight: 800;
+  text-transform: capitalize;
 }
 
 .day-header td {
@@ -82,4 +98,19 @@ td {
 
 .active {
   background-color: rgba(0, 0, 0, 0.1);
+}
+
+.settings {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.nav-wrapper .row {
+  padding:0;
+}
+
+.nav-wrapper .row li {
+  padding: 0;
 }

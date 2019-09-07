@@ -32,6 +32,37 @@ const getLocation = (conv) => {
   conv.ask(new Permission(options));
 };
 
+const buildResponse = (name, response) => {
+
+  let result = `Hi ${name}.`;
+
+  const rainInference = response.item.data.rain === 0 ? ' not ' : '';
+
+  result = result + `It's ${rainInference} raining in ${response.query.city} at the moment. `;
+
+  result = result + `It's currently ${response.item.data.temperature} degrees celsius`;
+
+  result = result + ` with a relative humidity of ${response.item.data.humidity} percent.`;
+  
+  if (response.item.result.label === 'coat') {
+    result = result + 'You should wear a coat.';
+  }
+  else {
+    result = result + 'You don\'t need a coat';
+
+    if (rainInference === 1) {
+      result = result + ' but maybe take an umbrella with you.';
+    }
+    else {
+      result = result +'.';
+    }
+  }
+
+  result = result + ' Have a nice day.';
+
+  return result;
+};
+
 // Handle the Dialogflow intent named 'favorite color'.
 // The intent collects a parameter named 'color'.
 app.intent('favorite color', (conv, {
@@ -53,15 +84,13 @@ app.intent('favorite color', (conv, {
 
     console.log('Calling ' + url);
 
-    return new Promise((resolve) => {
+    return new Promise((resolve, reject) => {
       fetch(url)
         .then(response => response.json())
         .then(response => {
-          if (response.item.result.label === 'coat') {
-            conv.close('Hi ' + name.given + '. You should wear a coat today in ' + response.query.city + '. Have a nice day');
-          } else {
-            conv.close('Hi ' + name.given + '. You don\'t need a coat today in ' + response.query.city + ', enjoy the good weather');
-          }
+          const reply = buildResponse(name.given, response);
+
+          conv.close(reply);
 
           resolve();
         });
