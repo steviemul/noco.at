@@ -21,11 +21,10 @@ const transformData = ({
   return {
     xs: values,
     ys: ys.coat
-  }
+  };
 };
 
 const loadTrainingData = () => {
-
   return tf.data.csv(MODEL_LOCATION, {
       columnConfigs: {
         coat: {
@@ -39,7 +38,6 @@ const loadTrainingData = () => {
 };
 
 const createModel = () => {
-
   const model = tf.sequential();
 
   model.add(tf.layers.dense({
@@ -70,7 +68,6 @@ const createModel = () => {
 let numTrainingIterations = 20;
 
 async function train() {
-
   const data = loadTrainingData();
   const model = createModel();
 

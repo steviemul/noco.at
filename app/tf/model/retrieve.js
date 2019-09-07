@@ -4,7 +4,6 @@ const path = require('path');
 const TRAINING_DATA_PATH = 'data/training_data.json';
 
 const itemToArray = (item) => {
-
   return [
     item.temperature,
     item.windspeed,
@@ -13,11 +12,10 @@ const itemToArray = (item) => {
     item.tolerance,
     item.activity,
     item.result
-  ]
+  ];
 };
 
 const formatCSV = (data) => {
-
   let csv = 'temperature,windspeed,rain,humidity,tolerance,activity,coat\n';
 
   csv = csv + data.reduce((buffer, item) => {
@@ -29,7 +27,7 @@ const formatCSV = (data) => {
 
 module.exports = (format = 'json') => {
   const data = fs.readFileSync(path.join(__dirname, TRAINING_DATA_PATH), 'utf8');
-  
+
   const dataJson = JSON.parse(data);
 
   if (format === 'csv') {

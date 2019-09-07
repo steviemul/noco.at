@@ -14,13 +14,13 @@ let ACTIVE_MODEL;
 
 const updateModel = (activeModel) => {
   ACTIVE_MODEL = activeModel;
-}
+};
 
 const createServer = (activeModel) => {
   ACTIVE_MODEL = activeModel;
 
   const app = express();
-  
+
   app.use(express.json());
 
   app.get('/model', (req, res) => {
@@ -30,7 +30,6 @@ const createServer = (activeModel) => {
   });
 
   app.post('/api/correction', (req, res) => {
-
     const body = req.body;
 
     const verifiedContent = request.verifyRequest(body.token, KEYS);
@@ -46,7 +45,6 @@ const createServer = (activeModel) => {
   });
 
   app.get('/api/prediction', (req, res) => {
-
     try {
       const query = utils.paramsToObject(req.query);
       const prediction = model.predict(ACTIVE_MODEL, query);
@@ -59,7 +57,6 @@ const createServer = (activeModel) => {
   });
 
   app.get('/api/lookup', (req, res) => {
-
     if ((req.query.lon && req.query.lat) || req.query.city) {
       lookup(req).then((response) => {
         const data = request.addTokenToLookupRequest(
@@ -86,8 +83,7 @@ const createServer = (activeModel) => {
 
 module.exports = {
   updateModel,
-  createServer
+  createServer,
 };
-
 
 

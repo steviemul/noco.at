@@ -21,15 +21,25 @@
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.6",
+    "eslint": "^4.19.0",
+    "eslint-config-google": "^0.9.1",
+    "eslint-plugin-react": "^7.14.3",
+    "husky": "^3.0.5",
     "webpack": "^4.39.1",
     "webpack-cli": "^3.3.6"
   },
   "scripts": {
+    "lint": "eslint .",
     "start": "node server.js",
     "debug": "node --inspect=0.0.0.0 server.js",
     "build": "webpack --mode=production",
     "watch": "webpack --watch --mode=development",
     "db": "docker build --build-arg HTTP_PROXY=$HTTP_PROXY --build-arg HTTPS_PROXY=$HTTPS_PROXY --no-cache -t nocoat .",
     "dr": "docker run -p 8000:8000 -p 9229:9229 -e HTTP_PROXY=$HTTP_PROXY -e HTTPS_PROXY=$HTTPS_PROXY nocoat"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn lint"
+    }
   }
 }

@@ -1,15 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const icon = (title, icon) => {
   const url = `https://openweathermap.org/img/wn/${icon}.png`;
 
-  return <img src={url} alt={title} title={title}></img>
-}
+  return <img src={url} alt={title} title={title}></img>;
+};
 
 const MARKERS_KEY = 'cnc_markers';
 
 const getMarkers = () => {
-
   const markers = new Set();
 
   const storedValues = localStorage.getItem(MARKERS_KEY);
@@ -18,7 +18,7 @@ const getMarkers = () => {
     const markersCollection = JSON.parse(storedValues);
 
     if (markersCollection.forEach) {
-      markersCollection.forEach(marker => {
+      markersCollection.forEach((marker) => {
         markers.add(marker);
       });
     }
@@ -38,7 +38,6 @@ const saveMarkers = (markers) => {
 };
 
 class MapContainer extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -74,16 +73,17 @@ class MapContainer extends React.Component {
     this.map.addListener('click', (location) => {
       const lon = location.latLng.lng();
       const lat = location.latLng.lat();
-      
+
       this.lookup(lon, lat);
     });
 
     for (let value of this.markers) {
       const coords = value.split('|');
-      const lon = parseFloat(coords[0]), lat = parseFloat(coords[1]);
+      const lon = parseFloat(coords[0]);
+      const lat = parseFloat(coords[1]);
 
       const marker = new google.maps.Marker({
-        position: {lat: lat, lng:lon},
+        position: {lat: lat, lng: lon},
         map: this.map
       });
 
@@ -103,7 +103,6 @@ class MapContainer extends React.Component {
   }
 
   lookup(lon, lat) {
-
     fetch(`/api/lookup?lon=${lon}&lat=${lat}&a=0&t=0`)
       .then((response) => response.json())
       .then((response) => {
@@ -114,7 +113,7 @@ class MapContainer extends React.Component {
 
         if (!this.markers.has(lon + '|' + lat)) {
           const marker = new google.maps.Marker({
-            position: {lat: lat, lng:lon},
+            position: {lat: lat, lng: lon},
             map: this.map
           });
 
@@ -124,7 +123,6 @@ class MapContainer extends React.Component {
 
           this.saveMarker(lon, lat);
         }
-        
       }
     );
   }
@@ -136,7 +134,6 @@ class MapContainer extends React.Component {
   }
 
   sendCorrection() {
-
     fetch(`/api/correction`, {
       method: 'POST',
       headers: {
@@ -144,17 +141,16 @@ class MapContainer extends React.Component {
       },
       body: JSON.stringify(this.state)
     })
-    .then(response => {
+    .then((response) => {
       if (response.status === 202) {
         console.log('correction send');
-      }
-      else  {
+      } else {
         console.log('correction not sent');
       }
 
       this.reset();
     })
-    .catch (e => {
+    .catch((e) => {
       console.error('error sending correction', e);
     });
   }
@@ -188,11 +184,16 @@ class MapContainer extends React.Component {
               <a href="#" onClick={this.sendCorrection}>Correct this prediction</a>
             </div>
           </div>
-          ) || null} 
+          ) || null}
         </div>
       </div>
     );
   }
 }
+
+MapContainer.propTypes = {
+  saveMarkers: PropTypes.func.isRequired,
+  updateCoords: PropTypes.func.isRequired
+};
 
 export default MapContainer;

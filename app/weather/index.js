@@ -20,7 +20,7 @@ const isRaining = (weather) => {
   for (const condition of weather) {
     for (const code of [codes.RAIN_CODES, codes.DRIZZLE_CODES, codes.SNOW_CODES, codes.THUNDER_CODES]) {
       if (code[condition.id]) {
-        raining = 1;``
+        raining = 1; ``;
       }
     }
   }
@@ -29,7 +29,6 @@ const isRaining = (weather) => {
 };
 
 const transformItem = (item) => {
-  
   return {
     'temperature': parseInt(item.main.temp),
     'windspeed': parseInt(item.wind.speed * SPEED_CONVERSION),
@@ -42,13 +41,11 @@ const transformItem = (item) => {
 
 /**
  * Returns the weather condition for the passed in longitude and latitude.
- * 
- * @param {*} lon  users longitude
- * @param {*} lat  users latitude
- * @param {*} type this should be current or forecast
+ *
+ * @param {*} req  the express request option
+ * @return {*} result this will contain the reponse from the weather api
  */
 async function lookup(req) {
-
   const lon = req.query.lon;
   const lat = req.query.lat;
   const type = req.query.type || 'current';
@@ -56,7 +53,7 @@ async function lookup(req) {
 
   const apiPath = (type === 'current' ? CURRENT_API_PATH : FORECAST_API_PATH);
 
-  const weatherUrl = city ? 
+  const weatherUrl = city ?
     `${apiPath}?appId=${APP_ID}&q=${city}&units=metric` :
     `${apiPath}?appId=${APP_ID}&lat=${lat}&lon=${lon}&units=metric`;
 
@@ -69,14 +66,14 @@ async function lookup(req) {
   const weatherResponse = await fetch(weatherUrl, options);
   const json = await weatherResponse.json();
 
-  const result = (type === 'current') ? 
+  const result = (type === 'current') ?
     {
       'item': transformItem(json)
-    } : 
+    } :
     {
-      'items': json.list.map(item => transformItem(item))
+      'items': json.list.map((item) => transformItem(item))
     };
-    
+
   const query = {
     lon,
     lat,
@@ -86,7 +83,7 @@ async function lookup(req) {
   return {
     result,
     query
-  }
+  };
 }
 
 module.exports = lookup;

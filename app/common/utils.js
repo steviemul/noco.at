@@ -4,21 +4,18 @@ const PARAM_RAIN = 'r';
 const PARAM_HUMIDITY = 'h';
 
 const paramToValidValue = (query, param, errors) => {
-
   try {
     const value = parseFloat(query[param]);
 
     return value;
-  }
-  catch (e) {
+  } catch (e) {
     errors.push(`Invalid parmater value ${query[param]} for '${param}'`);
   }
 };
 
 const paramsToObject = (query, tolerance = 0, activity = 0) => {
-  
   const errors = [];
-  
+
   for (const param of [PARAM_TEMP, PARAM_WIND, PARAM_RAIN, PARAM_HUMIDITY]) {
     if (!query[param]) {
       errors.push(`Expected mandatory parameter ${param}`);
@@ -32,11 +29,11 @@ const paramsToObject = (query, tolerance = 0, activity = 0) => {
 
   if (errors.length > 0) {
     throw {
-      error:true,
+      error: true,
       errors
-    }
+    };
   }
-  
+
   return [temp, wind, rain, humidity, tolerance, activity];
 };
 
@@ -48,10 +45,11 @@ const responseToObject = (response, tolerance, activity) => {
     response.humidity,
     tolerance,
     activity
-  ]
+  ];
 };
 
 module.exports = {
   paramsToObject,
   responseToObject
 }
+;

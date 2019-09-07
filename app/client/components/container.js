@@ -8,7 +8,6 @@ import {BrowserRouter as Router, Route, NavLink} from 'react-router-dom';
 const PREFERENCES_KEY = 'cnc_preferences';
 
 const getPreferences = () => {
-
   const preferences = localStorage.getItem(PREFERENCES_KEY);
 
   if (preferences) {
@@ -18,11 +17,10 @@ const getPreferences = () => {
   return {
     saveMarkers: false,
     temperaturePreferences: 2
-  }
+  };
 };
 
 const savePreferences = (values) => {
-
   const preferences = {
     saveMarkers: values.saveMarkers,
     temperaturePreferences: values.temperaturePreferences
@@ -32,13 +30,12 @@ const savePreferences = (values) => {
 };
 
 class Container extends React.Component {
-
   constructor(props) {
     super(props);
 
     this.state = {
-      lon:0,
-      lat:0,
+      lon: 0,
+      lat: 0,
       ...getPreferences()
     };
 
@@ -87,37 +84,37 @@ class Container extends React.Component {
           </div>
         </header>
         <main>
-          <Route 
-            path="/" exact 
-            render={(props) => <MapContainer {...props} 
-              lon={this.state.lon} 
+          <Route
+            path="/" exact
+            render={(props) => <MapContainer {...props}
+              lon={this.state.lon}
               lat={this.state.lat}
               saveMarkers={this.state.saveMarkers}
               temperaturePreferences={this.state.temperaturePreferences}
               updateCoords={this.updateCoords} />}
           />
 
-          <Route 
-            path="/forecast" exact 
-            render={(props) => <Forecast {...props} lon={this.state.lon} lat={this.state.lat} updateCoords={this.updateCoords} />} 
+          <Route
+            path="/forecast" exact
+            render={(props) => <Forecast {...props} lon={this.state.lon} lat={this.state.lat} updateCoords={this.updateCoords} />}
           />
 
-          <Route 
-            path="/settings" exact 
-            render={(props) => <Settings {...props} 
-              lon={this.state.lon} 
-              lat={this.state.lat} 
+          <Route
+            path="/settings" exact
+            render={(props) => <Settings {...props}
+              lon={this.state.lon}
+              lat={this.state.lat}
               saveMarkers={this.state.saveMarkers}
               temperaturePreferences={this.state.temperaturePreferences}
-              updateCoords={this.updateCoords} 
+              updateCoords={this.updateCoords}
               updatePreferences={this.updatePreferences}
-              />} 
+              />}
           />
 
         </main>
       </React.Fragment>
     </Router>;
   }
-} 
+}
 
 export default Container;

@@ -1,6 +1,6 @@
 /**
  * This is a list of weather codes that indicate rain.
- * 
+ *
  * sourced from https://openweathermap.org/weather-conditions
  */
 const RAIN_CODES = {
@@ -59,4 +59,4 @@ module.exports = {
   SNOW_CODES,
   THUNDER_CODES,
   DRIZZLE_CODES
-}
+};

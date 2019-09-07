@@ -33,7 +33,6 @@ const getLocation = (conv) => {
 };
 
 const buildResponse = (name, response) => {
-
   let result = `Hi ${name}.`;
 
   const rainInference = response.item.data.rain === 0 ? ' not ' : '';
@@ -43,17 +42,15 @@ const buildResponse = (name, response) => {
   result = result + `It's currently ${response.item.data.temperature} degrees celsius`;
 
   result = result + ` with a relative humidity of ${response.item.data.humidity} percent.`;
-  
+
   if (response.item.result.label === 'coat') {
     result = result + 'You should wear a coat.';
-  }
-  else {
+  } else {
     result = result + 'You don\'t need a coat';
 
     if (rainInference === 1) {
       result = result + ' but maybe take an umbrella with you.';
-    }
-    else {
+    } else {
       result = result +'.';
     }
   }
@@ -68,7 +65,6 @@ const buildResponse = (name, response) => {
 app.intent('favorite color', (conv, {
   color
 }, confirmationGranted) => {
-
   const {
     location
   } = conv.device;
@@ -86,8 +82,8 @@ app.intent('favorite color', (conv, {
 
     return new Promise((resolve, reject) => {
       fetch(url)
-        .then(response => response.json())
-        .then(response => {
+        .then((response) => response.json())
+        .then((response) => {
           const reply = buildResponse(name.given, response);
 
           conv.close(reply);
@@ -95,8 +91,6 @@ app.intent('favorite color', (conv, {
           resolve();
         });
     });
-
-
   } else {
     getLocation(conv);
   }

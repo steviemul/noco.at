@@ -1,10 +1,10 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const MARKERS_KEY = 'cnc_markers';
 
 class Settings extends React.Component {
-
-  constructor (props) {
+  constructor(props) {
     super(props);
 
     this.updateSaveOption = this.updateSaveOption.bind(this);
@@ -30,7 +30,7 @@ class Settings extends React.Component {
     localStorage.removeItem(MARKERS_KEY);
   }
 
-  render () {
+  render() {
     return (
       <div className='container'>
         <div className='row settings valign-wrapper'>
@@ -48,8 +48,8 @@ class Settings extends React.Component {
                 <select value={this.props.temperaturePreferences} onChange={this.updateTemperaturePreferences}>
                   <option value="1">I get cold easily</option>
                   <option value="2">Neutral</option>
-                  <option value="3">I don't mind the cold</option>
-                  <option value="4">I'm Chuck Norris</option>
+                  <option value="3">I don&apos;t mind the cold</option>
+                  <option value="4">I&apos;m Chuck Norris</option>
                 </select>
               </div>
               <label>Temperature Preferences</label>
@@ -60,10 +60,16 @@ class Settings extends React.Component {
               </button>
             </div>
           </form>
-        </div>  
+        </div>
       </div>
     );
   }
 }
+
+Settings.propTypes = {
+  saveMarkers: PropTypes.func.isRequired,
+  temperaturePreferences: PropTypes.bool.isRequired,
+  updatePreferences: PropTypes.func.isRequired
+};
 
 export default Settings;

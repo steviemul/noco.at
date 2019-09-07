@@ -11,7 +11,7 @@ const getLabel = (result) => {
 module.exports = (model, data) => {
   try {
     let result = model.predict(tf.tensor(data, [1, data.length])).arraySync();
-    
+
     const label = getLabel(result[0][1]);
     let confidence = parseInt(result[0][1] * 100);
 
@@ -20,11 +20,10 @@ module.exports = (model, data) => {
     }
 
     return {
-      confidence : confidence + '%',
+      confidence: confidence + '%',
       label
     };
-  }
-  catch (e) {
+  } catch (e) {
     console.error(e);
   }
 };

@@ -1,7 +1,6 @@
 const jwt = require('jsonwebtoken');
 
 const addTokenToLookupRequest = (payload, keys) => {
-
   if (payload.item) {
     const {privateKey, passphrase} = keys;
 
@@ -28,4 +27,4 @@ const verifyRequest = (token, keys) => {
 module.exports = {
   addTokenToLookupRequest,
   verifyRequest
-}
+};

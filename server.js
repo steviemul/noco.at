@@ -5,7 +5,6 @@ const {createServer} = require('./app/common/server');
 const PORT = process.env.PORT || 8000;
 
 async function start() {
-
   // load out saved tensorflow model.
   const savedModel = await model.load();
 

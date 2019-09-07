@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const DAYS = [
   'Sunday',
@@ -14,26 +15,25 @@ const padDigit = (input) => {
   let output = input.toString();
 
   return (output.length == 1) ? `0${output}` : output;
-}
+};
 
 const icon = (title, icon) => {
   const url = `https://openweathermap.org/img/wn/${icon}.png`;
 
-  return <img src={url} alt={title} title={title}></img>
-}
+  return <img src={url} alt={title} title={title}></img>;
+};
 
 const getDay = (dt) => {
   const date = new Date(dt * 1000);
   return DAYS[date.getDay()];
-}
+};
 
 const getTime = (dt) => {
   const date = new Date(dt * 1000);
   return (padDigit(date.getHours() + 1)) + ':' + padDigit(date.getMinutes());
-}
+};
 
 class Forecast extends React.Component {
-
   constructor(props) {
     super(props);
 
@@ -42,19 +42,18 @@ class Forecast extends React.Component {
         name: ''
       },
       items: []
-    }
+    };
 
     this.loadForecast = this.loadForecast.bind(this);
     this.transformItems = this.transformItems.bind(this);
   }
 
   loadForecast() {
-
     fetch(`/api/lookup?lon=${this.props.lon}&lat=${this.props.lat}&type=forcast`)
       .then((response) => response.json())
       .then((response) => {
         this.setState(response);
-      })
+      });
   }
 
   componentDidMount() {
@@ -64,8 +63,7 @@ class Forecast extends React.Component {
   transformItems() {
     const groups = [];
 
-    this.state.items.forEach(item => {
-      
+    this.state.items.forEach((item) => {
       const day = getDay(item.data.dt);
       const time = getTime(item.data.dt);
 
@@ -76,23 +74,23 @@ class Forecast extends React.Component {
         groups.push({
           day,
           label,
-          items:[]
+          items: []
         });
       }
 
       item.data.time = time;
-      groups[groups.length-1].items.push(item); 
+      groups[groups.length-1].items.push(item);
     });
 
     return groups;
   }
 
-  render () {
+  render() {
     return <React.Fragment>
       <table>
 
         <tbody>
-         {this.transformItems().map((item) => 
+         {this.transformItems().map((item) =>
             <React.Fragment key={item.day}>
               <tr className='day-header blue-grey darken-1 z-depth-5'>
                 <td colSpan='6'>{item.label}</td>
@@ -111,9 +109,14 @@ class Forecast extends React.Component {
           )}
         </tbody>
       </table>
-  
-    </React.Fragment>
+
+    </React.Fragment>;
   }
 }
+
+Forecast.propTypes = {
+  lon: PropTypes.number.isRequired,
+  lat: PropTypes.number.isRequired
+};
 
 export default Forecast;
