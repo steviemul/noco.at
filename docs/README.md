@@ -23,3 +23,11 @@ docker build --build-arg HTTP_PROXY=$HTTP_PROXY --build-arg HTTPS_PROXY=$HTTPS_P
 ## Running docker image with proxy
 
 docker run -p 8000:8000 -p 9229:9229 -e HTTP_PROXY=$HTTP_PROXY -e HTTPS_PROXY=$HTTPS_PROXY nocoat
+
+## Deploying the app
+
+gcloud app deploy
+
+## Viewing logs files
+
+gcloud app logs tail -s default

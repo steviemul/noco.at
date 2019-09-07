@@ -1,16 +1,25 @@
 <html>
   <head>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    
     <link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
-
-    <link rel="stylesheet" href="css/weather-icons.min.css">
     <link rel="stylesheet" href="css/style.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD4bSbLeCF6fkHO8I3-IpGWHVzBWQNwkNo"></script>
+    <script src="js/materialize.min.js"></script>
   </head>
   <body>
     <div id="app"></div>
     <script src="js/bundle.js" defer></script>
+
+    <script>
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('sw.js')
+          .then(function (reg) {
+            console.log("Service worker registered");
+          }).catch(function (err) {
+            console.log("Service worker failed to register ", err)
+          });
+      }
+    </script>
   </body>
 </html>
