@@ -15,8 +15,8 @@ const predict = (response, coatModel, tolerance = 0, activity = 0) => {
 
 const generate = (request, response, coatModel) => {
   const type = request.query.type || 'current';
-  const tolerance = request.query.tolerance || 0;
-  const activity = request.query.activity || 0;
+  const tolerance = request.query.n || 2;
+  const activity = 0;
 
   let result = {
     query: response.query

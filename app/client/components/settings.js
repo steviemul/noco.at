@@ -67,8 +67,8 @@ class Settings extends React.Component {
 }
 
 Settings.propTypes = {
-  saveMarkers: PropTypes.func.isRequired,
-  temperaturePreferences: PropTypes.bool.isRequired,
+  saveMarkers: PropTypes.bool.isRequired,
+  temperaturePreferences: PropTypes.any.isRequired,
   updatePreferences: PropTypes.func.isRequired
 };
 

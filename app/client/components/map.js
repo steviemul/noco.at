@@ -103,7 +103,9 @@ class MapContainer extends React.Component {
   }
 
   lookup(lon, lat) {
-    fetch(`/api/lookup?lon=${lon}&lat=${lat}&a=0&t=0`)
+    const n = this.props.temperaturePreferences || 2;
+
+    fetch(`/api/lookup?lon=${lon}&lat=${lat}&n=${n}`)
       .then((response) => response.json())
       .then((response) => {
         console.log(response);
@@ -192,8 +194,9 @@ class MapContainer extends React.Component {
 }
 
 MapContainer.propTypes = {
-  saveMarkers: PropTypes.func.isRequired,
-  updateCoords: PropTypes.func.isRequired
+  saveMarkers: PropTypes.bool.isRequired,
+  updateCoords: PropTypes.func.isRequired,
+  temperaturePreferences: PropTypes.any.isRequired
 };
 
 export default MapContainer;

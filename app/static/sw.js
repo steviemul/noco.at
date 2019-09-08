@@ -41,11 +41,8 @@ self.addEventListener('fetch', (e) => {
   let dataUrl = '/api/lookup';
   if (e.request.url.indexOf(dataUrl) > -1) {
     e.respondWith(
-      caches.open(dataCacheName).then((cache) => {
-        return fetch(e.request).then((response) => {
-          cache.put(e.request.url, response.clone());
-          return response;
-        });
+      fetch(e.request).then((response) => {
+        return response;
       })
     );
   } else {

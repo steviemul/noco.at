@@ -28,14 +28,15 @@ const isRaining = (weather) => {
   return raining;
 };
 
-const transformItem = (item) => {
+const transformItem = (item, tolerance) => {
   return {
-    'temperature': parseInt(item.main.temp),
-    'windspeed': parseInt(item.wind.speed * SPEED_CONVERSION),
-    'rain': isRaining(item.weather),
-    'weather': item.weather,
-    'humidity': item.main.humidity,
-    'dt': item.dt
+    temperature: parseInt(item.main.temp),
+    windspeed: parseInt(item.wind.speed * SPEED_CONVERSION),
+    rain: isRaining(item.weather),
+    weather: item.weather,
+    humidity: item.main.humidity,
+    tolerance,
+    dt: item.dt
   };
 };
 
@@ -50,6 +51,7 @@ async function lookup(req) {
   const lat = req.query.lat;
   const type = req.query.type || 'current';
   const city = req.query.city;
+  const tolerance = req.query.n || 2;
 
   const apiPath = (type === 'current' ? CURRENT_API_PATH : FORECAST_API_PATH);
 
@@ -68,10 +70,10 @@ async function lookup(req) {
 
   const result = (type === 'current') ?
     {
-      'item': transformItem(json)
+      'item': transformItem(json, tolerance)
     } :
     {
-      'items': json.list.map((item) => transformItem(item))
+      'items': json.list.map((item) => transformItem(item, tolerance))
     };
 
   const query = {

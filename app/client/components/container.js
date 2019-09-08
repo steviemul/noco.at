@@ -96,7 +96,11 @@ class Container extends React.Component {
 
           <Route
             path="/forecast" exact
-            render={(props) => <Forecast {...props} lon={this.state.lon} lat={this.state.lat} updateCoords={this.updateCoords} />}
+            render={(props) => <Forecast {...props}
+              lon={this.state.lon}
+              lat={this.state.lat}
+              temperaturePreferences={this.state.temperaturePreferences}
+              updateCoords={this.updateCoords} />}
           />
 
           <Route

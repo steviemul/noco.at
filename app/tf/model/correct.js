@@ -2,6 +2,7 @@ const retrieve = require('./retrieve');
 const fs = require('fs');
 const path = require('path');
 
+const SPEED_CONVERSION = 2.23694;
 const TRAINING_DATA_PATH = 'data/training_data.json';
 
 const addCorrection = (amendment, result) => {
@@ -9,13 +10,15 @@ const addCorrection = (amendment, result) => {
 
   const entry = {
     temperature: amendment.temperature,
-    windspeed: amendment.windspeed,
+    windspeed: parseInt(amendment.windspeed / SPEED_CONVERSION),
     rain: amendment.rain,
     humidity: amendment.humidity,
-    tolerance: 0,
+    tolerance: amendment.tolerance,
     activity: 0,
     result
   };
+
+  console.info('Correction accepted', entry);
 
   data.push(entry);
 

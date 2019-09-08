@@ -7,21 +7,21 @@ import random
 
 URL = 'http://localhost:8000/prediction'
 
-TEMP_THRESHOLD = 18
+TEMP_THRESHOLD = 19
 HUMIDITY_THRESHOLD = 60
 RAIN_THRESHOLD = 28
 WINDSPEED_THRESHOLD = 40
 
 ITEMS = []
 
-for n in range(0, 20):
+for n in range(0, 60):
   for i in range(-50, 50):
     threshold = TEMP_THRESHOLD
 
     rain = random.randint(0, 1)
     windspeed = random.randint(0, 100)
     humidity = random.randint(0, 100)
-    tolerance = random.randint(-2, 2);
+    tolerance = random.randint(1, 4);
     activity = random.randint(0, 3);
 
     if rain == 1:
@@ -35,7 +35,14 @@ for n in range(0, 20):
       humidity_adjustment = (humidity - HUMIDITY_THRESHOLD) / 10;
       threshold = threshold - humidity_adjustment
 
-    threshold = threshold + tolerance - activity
+    if tolerance == 1:
+      threshold = threshold + 2
+    elif tolerance == 2:
+      threshold = threshold + 0
+    elif tolerance == 3:
+      threshold = threshold - 2
+    elif tolerance == 4:
+      threshold = -50
 
     result = 1
 

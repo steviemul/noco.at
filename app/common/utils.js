@@ -13,8 +13,11 @@ const paramToValidValue = (query, param, errors) => {
   }
 };
 
-const paramsToObject = (query, tolerance = 0, activity = 0) => {
+const paramsToObject = (query) => {
   const errors = [];
+
+  const tolerance = parseInt(query.n || 2);
+  const activity = 0;
 
   for (const param of [PARAM_TEMP, PARAM_WIND, PARAM_RAIN, PARAM_HUMIDITY]) {
     if (!query[param]) {
