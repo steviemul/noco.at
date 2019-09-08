@@ -11,7 +11,7 @@ const buildReply = (response, name) => {
     reply = reply + 'You don\'t need a coat ';
   }
 
-  reply = reply + `in ${response.query.city}`;
+  reply = reply + `in ${response.query.city}. `;
 
   return reply;
 };

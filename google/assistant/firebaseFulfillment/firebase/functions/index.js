@@ -11,6 +11,7 @@ const functions = require('firebase-functions');
 
 const {cityQuery, locationQuery} = require('./utils/queries');
 const {buildReply} = require('./utils/response');
+const {getName, setName} = require('./utils/conversation');
 
 // Instantiate the Dialogflow client.
 const app = dialogflow({
@@ -22,7 +23,6 @@ const getLocation = (conv) => {
   const context = 'Hello';
 
   if (conv.user.verification === 'VERIFIED') {
-    // Could use DEVICE_COARSE_LOCATION instead for city, zip code
     permissions.push('DEVICE_PRECISE_LOCATION');
   }
 
@@ -36,7 +36,7 @@ const getLocation = (conv) => {
 
 
 app.intent('welcome intent', (conv) => {
-  const name = conv.user.storage.userName;
+  const name = getName(conv);
 
   if (!name) {
     getLocation(conv);
@@ -50,10 +50,18 @@ app.intent('welcome intent', (conv) => {
 app.intent('coat query', (conv, {}, confirmationGranted) => {
   if (!confirmationGranted) {
     conv.ask('Ok no problem. Where are you ?');
-    conv.ask(new Suggestions('Belfast', 'Dublin', 'London', 'New York', 'Paris', 'Rome'));
+    conv.ask(new Suggestions(
+      'London',
+      'Paris',
+      'New York',
+      'Munich',
+      'Everyone talks about pop music'
+    ));
   } else {
     const {location} = conv.device;
     const {name} = conv.user;
+
+    setName(name);
 
     const lng = location.coordinates.longitude;
     const lat = location.coordinates.latitude;
@@ -62,7 +70,16 @@ app.intent('coat query', (conv, {}, confirmationGranted) => {
       locationQuery(lng, lat).then((response) => {
         const reply = buildReply(response, name.given);
 
-        conv.close(reply);
+        conv.ask(reply);
+        conv.ask('Can I check anything else for you ?');
+
+        const suggestions = new Suggestions(
+          'Yes, check in London',
+          'Sure, how about later',
+          'No'
+        );
+
+        conv.ask(suggestions);
 
         resolve();
       });
@@ -80,6 +97,14 @@ app.intent('city query', (conv, {city}) => {
       resolve();
     });
   });
+});
+
+app.intent('coat query - location', (conv, {city}) => {
+  conv.close(`City changed to ${city}`);
+});
+
+app.intent('coat query - time', (conv, {timeframe}) => {
+  conv.close(`Timeframe set to ${timeframe}`);
 });
 
 // Set the DialogflowApp object to handle the HTTPS POST request.

@@ -2,6 +2,16 @@ const fetch = require('node-fetch');
 
 const API_LOCATION = 'https://coat-node-coat.appspot.com/api/lookup';
 
+const DAYS = [
+  'sunday',
+  'monday',
+  'tuesday',
+  'wednesday',
+  'thursday',
+  'friday',
+  'saturday'
+];
+
 async function get(url) {
   const response = await fetch(url);
 
