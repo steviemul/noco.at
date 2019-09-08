@@ -50,8 +50,9 @@ class Forecast extends React.Component {
 
   loadForecast() {
     const n = this.props.temperaturePreferences || 2;
+    const tf = this.props.forecastPreferences || 5;
 
-    fetch(`/api/lookup?lon=${this.props.lon}&lat=${this.props.lat}&type=forecast&n=${n}`)
+    fetch(`/api/lookup?lon=${this.props.lon}&lat=${this.props.lat}&type=forecast&n=${n}&tf=${tf}`)
       .then((response) => response.json())
       .then((response) => {
         this.setState(response);
@@ -119,7 +120,8 @@ class Forecast extends React.Component {
 Forecast.propTypes = {
   lon: PropTypes.number.isRequired,
   lat: PropTypes.number.isRequired,
-  temperaturePreferences: PropTypes.any.isRequired
+  temperaturePreferences: PropTypes.any.isRequired,
+  forecastPreferences: PropTypes.any.isRequired
 };
 
 export default Forecast;

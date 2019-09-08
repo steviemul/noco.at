@@ -10,20 +10,27 @@ const PREFERENCES_KEY = 'cnc_preferences';
 const getPreferences = () => {
   const preferences = localStorage.getItem(PREFERENCES_KEY);
 
+  const defaults = {
+    saveMarkers: false,
+    temperaturePreferences: 2,
+    forecastPreferences: 1
+  };
+
   if (preferences) {
-    return JSON.parse(preferences);
+    return {
+      ...defaults,
+      ...JSON.parse(preferences)
+    };
   }
 
-  return {
-    saveMarkers: false,
-    temperaturePreferences: 2
-  };
+  return defaults;
 };
 
 const savePreferences = (values) => {
   const preferences = {
-    saveMarkers: values.saveMarkers,
-    temperaturePreferences: values.temperaturePreferences
+    saveMarkers: values.saveMarkers || false,
+    temperaturePreferences: values.temperaturePreferences || 2,
+    forecastPreferences: values.forecastPreferences || 1
   };
 
   localStorage.setItem(PREFERENCES_KEY, JSON.stringify(preferences));
@@ -43,11 +50,12 @@ class Container extends React.Component {
     this.updatePreferences = this.updatePreferences.bind(this);
   }
 
-  updatePreferences(saveMarkers, temperaturePreferences) {
+  updatePreferences(saveMarkers, temperaturePreferences, forecastPreferences) {
     this.setState({
       ...this.state,
       saveMarkers,
-      temperaturePreferences
+      temperaturePreferences,
+      forecastPreferences
     }, () => {
       savePreferences(this.state);
     });
@@ -99,6 +107,7 @@ class Container extends React.Component {
             render={(props) => <Forecast {...props}
               lon={this.state.lon}
               lat={this.state.lat}
+              forecastPreferences={this.state.forecastPreferences}
               temperaturePreferences={this.state.temperaturePreferences}
               updateCoords={this.updateCoords} />}
           />
@@ -109,10 +118,10 @@ class Container extends React.Component {
               lon={this.state.lon}
               lat={this.state.lat}
               saveMarkers={this.state.saveMarkers}
+              forecastPreferences={this.state.forecastPreferences}
               temperaturePreferences={this.state.temperaturePreferences}
               updateCoords={this.updateCoords}
-              updatePreferences={this.updatePreferences}
-              />}
+              updatePreferences={this.updatePreferences}/>}
           />
 
         </main>

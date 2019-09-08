@@ -9,6 +9,7 @@ class Settings extends React.Component {
 
     this.updateSaveOption = this.updateSaveOption.bind(this);
     this.updateTemperaturePreferences = this.updateTemperaturePreferences.bind(this);
+    this.updateForecastPreferences = this.updateForecastPreferences.bind(this);
   }
 
   componentDidMount() {
@@ -17,13 +18,27 @@ class Settings extends React.Component {
   }
 
   updateSaveOption(event) {
-    const value = event.target.checked;
-
-    this.props.updatePreferences(value, this.props.temperaturePreferences);
+    this.props.updatePreferences(
+      event.target.checked,
+      this.props.temperaturePreferences,
+      this.props.forecastPreferences
+    );
   }
 
   updateTemperaturePreferences(event) {
-    this.props.updatePreferences(this.props.saveMarkers, event.target.value);
+    this.props.updatePreferences(
+      this.props.saveMarkers,
+      event.target.value,
+      this.props.forecastPreferences
+    );
+  }
+
+  updateForecastPreferences(event) {
+    this.props.updatePreferences(
+      this.props.saveMarkers,
+      this.props.temperaturePreferences,
+      event.target.value
+    );
   }
 
   clearMarkers() {
@@ -55,6 +70,18 @@ class Settings extends React.Component {
               <label>Temperature Preferences</label>
             </div>
             <div className="input-field col s12">
+              <div className="select-wrapper">
+                <select value={this.props.forecastPreferences} onChange={this.updateForecastPreferences}>
+                  <option value="1">Today</option>
+                  <option value="2">Today and Tomorrow</option>
+                  <option value="3">Next 3 days</option>
+                  <option value="4">Next 4 days</option>
+                  <option value="5">Next 5 days</option>
+                </select>
+              </div>
+              <label>Forecast Preferences</label>
+            </div>
+            <div className="input-field col s12">
               <button className="btn waves-effect waves-light" onClick={this.clearMarkers}>Clear Markers
                 <i className="material-icons right">delete</i>
               </button>
@@ -69,6 +96,7 @@ class Settings extends React.Component {
 Settings.propTypes = {
   saveMarkers: PropTypes.bool.isRequired,
   temperaturePreferences: PropTypes.any.isRequired,
+  forecastPreferences: PropTypes.any.isRequired,
   updatePreferences: PropTypes.func.isRequired
 };
 

@@ -28,6 +28,48 @@ const isRaining = (weather) => {
   return raining;
 };
 
+/**
+ * Filters items for the supplied timeframe, this will be a number
+ * between 1 and 5 indicating how many days in advance to return
+ * items for.
+ *
+ * @param {*} items     list of items to filter on
+ * @param {*} timeframe a number between 1 & 5
+ *
+ * @return {*} the list of itmes, filtered for the supplied timeframe.
+ */
+const filterOnTimeframe = (items, timeframe) => {
+  const tf = parseInt(timeframe);
+  const current = new Date();
+  const day = current.getDay();
+
+  const threshold = day + (tf - 1);
+
+  return items.filter((item) => {
+    const date = new Date(item.dt * 1000);
+
+    return (date.getDay() <= threshold);
+  });
+};
+
+/**
+ * Filters items for the supplied day, this will be a number
+ * between 0 and 6 indicating which day of the week to filter on.
+ * items for.
+ *
+ * @param {*} items     list of items to filter on
+ * @param {*} day       a number between 0 & 6
+ *
+ * @return {*} the list of itmes, filtered for the supplied day.
+ */
+const filterOnDay = (items, day) => {
+  return items.filter((item) => {
+    const date = new Date(item.dt * 1000);
+
+    return (date.getDay() === parseInt(day));
+  });
+};
+
 const transformItem = (item, tolerance) => {
   return {
     temperature: parseInt(item.main.temp),
@@ -76,15 +118,21 @@ async function lookup(req) {
       'items': json.list.map((item) => transformItem(item, tolerance))
     };
 
-  const query = {
-    lon,
-    lat,
-    city: json.city ? json.city.name : json.name
-  };
+  if (result.items) {
+    if (req.query.tf) {
+      result.items = filterOnTimeframe(result.items, req.query.tf);
+    } else if (req.query.d) {
+      result.items = filterOnDay(result.items, req.query.d);
+    }
+  }
 
   return {
     result,
-    query
+    query: {
+      lon,
+      lat,
+      city: json.city ? json.city.name : json.name
+    }
   };
 }
 
