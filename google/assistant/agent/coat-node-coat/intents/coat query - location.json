@@ -1,21 +1,15 @@
 {
-  "id": "7c34d3a3-4e7e-4eff-b671-1824e5101071",
-  "name": "city query",
+  "id": "69617253-2cc9-4d56-83b8-700f42cb6a2f",
+  "name": "coat query - location",
   "auto": true,
   "contexts": [],
   "responses": [
     {
       "resetContexts": false,
-      "affectedContexts": [
-        {
-          "name": "cityquery-followup",
-          "parameters": {},
-          "lifespan": 2
-        }
-      ],
+      "affectedContexts": [],
       "parameters": [
         {
-          "id": "c753b96f-119f-45d9-a3e4-c83125773e9c",
+          "id": "af63a1e0-91fa-407b-ac2a-1fa78bedd30d",
           "required": false,
           "dataType": "@sys.geo-city",
           "name": "city",

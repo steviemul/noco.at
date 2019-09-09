@@ -1,99 +1,11 @@
 [
   {
-    "id": "76a4784a-2d7a-476d-bb25-40dad953ec12",
+    "id": "fe6c95c6-3df5-42ec-9813-3eb25f301d68",
     "data": [
-      {
-        "text": "I\u0027m going to ",
-        "userDefined": false
-      },
-      {
-        "text": "Paris",
-        "alias": "city",
-        "meta": "@sys.geo-city",
-        "userDefined": false
-      },
-      {
-        "text": " ",
-        "userDefined": false
-      },
-      {
-        "text": "on Friday",
-        "alias": "date",
-        "meta": "@sys.date",
-        "userDefined": false
-      }
-    ],
-    "isTemplate": false,
-    "count": 0,
-    "updated": 0
-  },
-  {
-    "id": "668ab6f9-0b0a-42ee-8990-f601802c7e67",
-    "data": [
-      {
-        "text": "I\u0027ll be in ",
-        "userDefined": false
-      },
-      {
-        "text": "New York",
-        "alias": "city",
-        "meta": "@sys.geo-city",
-        "userDefined": false
-      },
-      {
-        "text": " ",
-        "userDefined": false
-      },
-      {
-        "text": "tomorrow",
-        "alias": "date",
-        "meta": "@sys.date",
-        "userDefined": false
-      }
-    ],
-    "isTemplate": false,
-    "count": 0,
-    "updated": 0
-  },
-  {
-    "id": "12e6adef-1bb7-4b02-bbb3-3dfab76ea8b9",
-    "data": [
-      {
-        "text": "How about ",
-        "userDefined": false
-      },
       {
         "text": "Belfast",
         "alias": "city",
         "meta": "@sys.geo-city",
-        "userDefined": true
-      },
-      {
-        "text": " ",
-        "userDefined": false
-      },
-      {
-        "text": "on Wednesday",
-        "alias": "date",
-        "meta": "@sys.date",
-        "userDefined": true
-      }
-    ],
-    "isTemplate": false,
-    "count": 0,
-    "updated": 0
-  },
-  {
-    "id": "5822f879-85dd-45ee-80f8-4041e8d0be7b",
-    "data": [
-      {
-        "text": "What about in ",
-        "userDefined": false
-      },
-      {
-        "text": "London",
-        "alias": "city",
-        "meta": "@sys.geo-city",
         "userDefined": false
       }
     ],
@@ -102,105 +14,7 @@
     "updated": 0
   },
   {
-    "id": "1093ad69-ce3c-4d6e-96de-134626edc113",
-    "data": [
-      {
-        "text": "Boston",
-        "alias": "city",
-        "meta": "@sys.geo-city",
-        "userDefined": false
-      }
-    ],
-    "isTemplate": false,
-    "count": 0,
-    "updated": 0
-  },
-  {
-    "id": "4a3c803c-6c25-4bac-99b9-560877f4540b",
-    "data": [
-      {
-        "text": "New York",
-        "alias": "city",
-        "meta": "@sys.geo-city",
-        "userDefined": false
-      }
-    ],
-    "isTemplate": false,
-    "count": 0,
-    "updated": 0
-  },
-  {
-    "id": "1d1411df-416b-414a-abd0-57c2e63484c1",
-    "data": [
-      {
-        "text": "Liverpool",
-        "alias": "city",
-        "meta": "@sys.geo-city",
-        "userDefined": false
-      }
-    ],
-    "isTemplate": false,
-    "count": 0,
-    "updated": 0
-  },
-  {
-    "id": "7a74128a-14a7-4c7e-875a-f309f0f095be",
-    "data": [
-      {
-        "text": "Manchester",
-        "alias": "city",
-        "meta": "@sys.geo-city",
-        "userDefined": false
-      }
-    ],
-    "isTemplate": false,
-    "count": 0,
-    "updated": 0
-  },
-  {
-    "id": "0dc34b1d-74bc-4199-a92b-d6bbe2d82f3e",
-    "data": [
-      {
-        "text": "London",
-        "alias": "city",
-        "meta": "@sys.geo-city",
-        "userDefined": false
-      }
-    ],
-    "isTemplate": false,
-    "count": 0,
-    "updated": 0
-  },
-  {
-    "id": "2c8bdf75-b7c3-4ba6-bf0b-f505e46afaf5",
-    "data": [
-      {
-        "text": "Galway",
-        "alias": "city",
-        "meta": "@sys.geo-city",
-        "userDefined": true
-      }
-    ],
-    "isTemplate": false,
-    "count": 0,
-    "updated": 0
-  },
-  {
-    "id": "6097f5b5-95b4-4127-9331-538d2f4ca7a7",
-    "data": [
-      {
-        "text": "Cork",
-        "alias": "city",
-        "meta": "@sys.geo-city",
-        "userDefined": true
-      }
-    ],
-    "isTemplate": false,
-    "count": 0,
-    "updated": 0
-  },
-  {
-    "id": "4eae4910-c329-4e09-ac35-679290553b3d",
+    "id": "0a214747-a39b-42e6-856e-58f9266a4605",
     "data": [
       {
         "text": "Dublin",
@@ -214,10 +28,100 @@
     "updated": 0
   },
   {
-    "id": "b0dc9920-95f7-445d-aa80-0c3f4eff1adf",
+    "id": "23d1f58b-59a6-4b12-a569-4d1c941fdff5",
     "data": [
       {
-        "text": "Belfast",
+        "text": "Rome",
+        "alias": "city",
+        "meta": "@sys.geo-city",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "797392ee-d40d-4c82-abd9-a359439ff0e2",
+    "data": [
+      {
+        "text": "Munich",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "22427122-7b6d-462a-b382-50719857ffed",
+    "data": [
+      {
+        "text": "New York",
+        "alias": "city",
+        "meta": "@sys.geo-city",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "28c2f820-6464-4ba4-ba4f-539184d53114",
+    "data": [
+      {
+        "text": "Paris",
+        "alias": "city",
+        "meta": "@sys.geo-city",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "ba9e769b-5f4b-419c-a072-607ca8595832",
+    "data": [
+      {
+        "text": "London",
+        "alias": "city",
+        "meta": "@sys.geo-city",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "d27e724a-21a4-487d-b1c3-ad3e62341bb0",
+    "data": [
+      {
+        "text": "Talk to not a coat about ",
+        "userDefined": false
+      },
+      {
+        "text": "London",
+        "alias": "city",
+        "meta": "@sys.geo-city",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "65ee31c5-c6ce-4987-b741-c4a801a3ec1d",
+    "data": [
+      {
+        "text": "Talk to coat no coat about ",
+        "userDefined": false
+      },
+      {
+        "text": "London",
         "alias": "city",
         "meta": "@sys.geo-city",
         "userDefined": false

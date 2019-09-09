@@ -12,16 +12,18 @@
     "welcomeIntentSignInRequired": false,
     "startIntents": [
       {
-        "intentId": "b5fb31e3-319a-4f63-b76e-720f5bdcbb9f",
+        "intentId": "7c34d3a3-4e7e-4eff-b671-1824e5101071",
         "signInRequired": false
       },
       {
-        "intentId": "7c34d3a3-4e7e-4eff-b671-1824e5101071",
+        "intentId": "b5fb31e3-319a-4f63-b76e-720f5bdcbb9f",
         "signInRequired": false
       }
     ],
     "systemIntents": [],
-    "endIntentIds": [],
+    "endIntentIds": [
+      "379210a1-cae8-4ffd-b14b-19622ce60249"
+    ],
     "oAuthLinking": {
       "required": false,
       "providerId": "",

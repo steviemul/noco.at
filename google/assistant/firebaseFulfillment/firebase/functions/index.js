@@ -1,26 +1,54 @@
 'use strict';
 
+// Import the firebase-functions package for deployment.
+const functions = require('firebase-functions');
+
 const {
   dialogflow,
   Permission,
   Suggestions
 } = require('actions-on-google');
 
-// Import the firebase-functions package for deployment.
-const functions = require('firebase-functions');
+// queries
+const {
+  query,
+  cityQuery,
+  locationQuery
+} = require('./utils/queries');
 
-const {cityQuery, locationQuery} = require('./utils/queries');
-const {buildReply} = require('./utils/response');
-const {getName, setName} = require('./utils/conversation');
+// reply formatters
+const {
+  buildReply
+} = require('./utils/response');
+
+// conversation helpers, these get and set context for the user and conversation
+const {
+  getName,
+  setName,
+  getCity,
+  getCoordinates,
+  setCoordinates,
+  getTimeframe,
+  setTimeframe,
+  setCity
+} = require('./utils/conversation');
 
 // Instantiate the Dialogflow client.
 const app = dialogflow({
   debug: true
 });
 
-const getLocation = (conv) => {
-  const permissions = ['NAME'];
-  const context = 'Hello';
+const getUserInformation = (conv) => {
+  const permissions = [];
+  let context = 'Hey ';
+
+  const name = getName(conv);
+
+  if (!name) {
+    permissions.push('NAME');
+  } else {
+    context = context + name.given;
+  }
 
   if (conv.user.verification === 'VERIFIED') {
     permissions.push('DEVICE_PRECISE_LOCATION');
@@ -34,15 +62,20 @@ const getLocation = (conv) => {
   conv.ask(new Permission(options));
 };
 
+const prompt = (conv) => {
+  conv.ask('Can I check anything else for you ?');
+
+  const suggestions = new Suggestions(
+    'Yes, check in London',
+    'Sure, how about later',
+    'No'
+  );
+
+  conv.ask(suggestions);
+};
 
 app.intent('welcome intent', (conv) => {
-  const name = getName(conv);
-
-  if (!name) {
-    getLocation(conv);
-  } else {
-    conv.close('See ya sport');
-  }
+  getUserInformation(conv);
 });
 
 // Handle the Dialogflow intent named 'favorite color'.
@@ -55,31 +88,24 @@ app.intent('coat query', (conv, {}, confirmationGranted) => {
       'Paris',
       'New York',
       'Munich',
-      'Everyone talks about pop music'
+      'Pop Music'
     ));
   } else {
     const {location} = conv.device;
     const {name} = conv.user;
 
-    setName(name);
+    setName(conv, name.given);
+    setCoordinates(conv, location.coordinates);
 
     const lng = location.coordinates.longitude;
     const lat = location.coordinates.latitude;
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       locationQuery(lng, lat).then((response) => {
         const reply = buildReply(response, name.given);
 
         conv.ask(reply);
-        conv.ask('Can I check anything else for you ?');
-
-        const suggestions = new Suggestions(
-          'Yes, check in London',
-          'Sure, how about later',
-          'No'
-        );
-
-        conv.ask(suggestions);
+        prompt(conv);
 
         resolve();
       });
@@ -87,24 +113,74 @@ app.intent('coat query', (conv, {}, confirmationGranted) => {
   }
 });
 
-app.intent('city query', (conv, {city}) => {
-  return new Promise((resolve, reject) => {
+const queryByCity = (city, callback) => {
+  return new Promise((resolve) => {
     cityQuery(city).then((response) => {
       const reply = buildReply(response);
 
-      conv.close(reply);
+      callback(reply);
 
+      resolve();
+    });
+  });
+};
+
+app.intent('city query', (conv, {city, timeframe}) => {
+  return new Promise((resolve) => {
+    console.info(`Querying for city ${city} and timeframe ${timeframe}`);
+
+    query(city, getCoordinates(conv), timeframe).then((response) => {
+      const reply = buildReply(response, null, timeframe);
+      conv.close(reply);
       resolve();
     });
   });
 });
 
 app.intent('coat query - location', (conv, {city}) => {
-  conv.close(`City changed to ${city}`);
+  setCity(conv, city);
+
+  const timeframe = getTimeframe(conv) || now;
+
+  return new Promise((resolve) => {
+    query(getCity(conv), getCoordinates(conv), timeframe).then((response) => {
+      const name = getName(conv);
+
+      const reply = buildReply(response, name, timeframe);
+      conv.ask(reply);
+      prompt(conv);
+      resolve();
+    }, (error) => {
+      conv.ask(error.message);
+      prompt(conv);
+      resolve();
+    });
+  });
 });
 
 app.intent('coat query - time', (conv, {timeframe}) => {
-  conv.close(`Timeframe set to ${timeframe}`);
+  setTimeframe(conv, timeframe);
+
+  return new Promise((resolve) => {
+    query(getCity(conv), getCoordinates(conv), getTimeframe(conv)).then((response) => {
+      const name = getName(conv);
+
+      const reply = buildReply(response, name, getTimeframe(conv));
+      conv.ask(reply);
+      prompt(conv);
+      resolve();
+    }, (error) => {
+      conv.ask(error.message);
+      prompt(conv);
+      resolve();
+    });
+  });
+});
+
+app.intent('clear', (conv) => {
+  conv.user.storage = {};
+  conv.ask('You details have been cleared.');
+  prompt(conv);
 });
 
 // Set the DialogflowApp object to handle the HTTPS POST request.

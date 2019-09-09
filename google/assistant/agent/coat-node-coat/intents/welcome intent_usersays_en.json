@@ -1,0 +1,92 @@
+[
+  {
+    "id": "e201291f-aa95-4bf1-a553-89ac922cc0ad",
+    "data": [
+      {
+        "text": "coat ",
+        "userDefined": false
+      },
+      {
+        "text": "today",
+        "alias": "date",
+        "meta": "@sys.date",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "e8e3bbfe-0636-4d98-ade7-b877af8d0f88",
+    "data": [
+      {
+        "text": "Talk to not a coat",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "c54d4525-75a3-4721-93cd-476fbfa8216e",
+    "data": [
+      {
+        "text": "Talk to quote no coat",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "a39244b7-8e9f-4709-8214-c8763848296c",
+    "data": [
+      {
+        "text": "Talk to no coat",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "f2340ff0-04a9-4e93-ac38-ed961d965037",
+    "data": [
+      {
+        "text": "Talk to know coat",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "9c3e300a-21c2-4cb2-a90b-331c35149ec6",
+    "data": [
+      {
+        "text": "Talk to coat no coat",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "4771cb68-6e6b-4375-bec2-2d3dddb01722",
+    "data": [
+      {
+        "text": "No coat",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  }
+]

@@ -1,19 +1,12 @@
 {
-  "id": "b5fb31e3-319a-4f63-b76e-720f5bdcbb9f",
-  "name": "coat query",
+  "id": "5c44f4a0-466b-49d6-b8f8-0132a059bb13",
+  "name": "clear",
   "auto": true,
   "contexts": [],
   "responses": [
     {
       "resetContexts": false,
-      "action": "input.welcome",
-      "affectedContexts": [
-        {
-          "name": "coatquery-followup",
-          "parameters": {},
-          "lifespan": 2
-        }
-      ],
+      "affectedContexts": [],
       "parameters": [],
       "messages": [
         {
@@ -30,9 +23,5 @@
   "webhookUsed": true,
   "webhookForSlotFilling": false,
   "fallbackIntent": false,
-  "events": [
-    {
-      "name": "actions_intent_PERMISSION"
-    }
-  ]
+  "events": []
 }

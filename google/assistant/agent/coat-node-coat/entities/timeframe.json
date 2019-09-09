@@ -1,0 +1,9 @@
+{
+  "id": "ac84d38f-d445-402d-8e5f-8beaf6bd9db3",
+  "name": "timeframe",
+  "isOverridable": true,
+  "isEnum": false,
+  "isRegexp": false,
+  "automatedExpansion": false,
+  "allowFuzzyExtraction": false
+}

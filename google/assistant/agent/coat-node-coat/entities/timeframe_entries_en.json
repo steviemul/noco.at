@@ -1,0 +1,62 @@
+[
+  {
+    "value": "Friday",
+    "synonyms": [
+      "Friday"
+    ]
+  },
+  {
+    "value": "Later",
+    "synonyms": [
+      "later"
+    ]
+  },
+  {
+    "value": "Monday",
+    "synonyms": [
+      "Monday"
+    ]
+  },
+  {
+    "value": "Now",
+    "synonyms": [
+      "Now"
+    ]
+  },
+  {
+    "value": "Saturday",
+    "synonyms": [
+      "Saturday"
+    ]
+  },
+  {
+    "value": "Sunday",
+    "synonyms": [
+      "Sunday"
+    ]
+  },
+  {
+    "value": "Thursday",
+    "synonyms": [
+      "Thursday"
+    ]
+  },
+  {
+    "value": "Tomorrow",
+    "synonyms": [
+      "tomorrow"
+    ]
+  },
+  {
+    "value": "Tuesday",
+    "synonyms": [
+      "Tuesday"
+    ]
+  },
+  {
+    "value": "Wednesday",
+    "synonyms": [
+      "Wednesday"
+    ]
+  }
+]

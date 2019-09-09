@@ -1,0 +1,74 @@
+[
+  {
+    "id": "c0f2b054-050d-4612-a448-24837a967ea8",
+    "data": [
+      {
+        "text": "Yes, tell me about ",
+        "userDefined": false
+      },
+      {
+        "text": "Dublin",
+        "alias": "city",
+        "meta": "@sys.geo-city",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "e12ca97a-2da8-4f10-a790-539d345ebd5b",
+    "data": [
+      {
+        "text": "Sure, how about in ",
+        "userDefined": false
+      },
+      {
+        "text": "London",
+        "alias": "city",
+        "meta": "@sys.geo-city",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "0dede10e-b7a2-412f-a1cb-91fbffb6c13f",
+    "data": [
+      {
+        "text": "Check in ",
+        "userDefined": false
+      },
+      {
+        "text": "New York",
+        "alias": "city",
+        "meta": "@sys.geo-city",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  },
+  {
+    "id": "583e1397-1a3b-4175-be7b-6e2d6237e6db",
+    "data": [
+      {
+        "text": "Yes, check in ",
+        "userDefined": false
+      },
+      {
+        "text": "London",
+        "alias": "city",
+        "meta": "@sys.geo-city",
+        "userDefined": false
+      }
+    ],
+    "isTemplate": false,
+    "count": 0,
+    "updated": 0
+  }
+]
