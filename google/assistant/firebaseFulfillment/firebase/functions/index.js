@@ -11,8 +11,8 @@ const {
 
 // queries
 const {
+  chuckQuery,
   query,
-  cityQuery,
   locationQuery
 } = require('./utils/queries');
 
@@ -33,6 +33,8 @@ const {
   setCity
 } = require('./utils/conversation');
 
+const NOW = 'now';
+
 // Instantiate the Dialogflow client.
 const app = dialogflow({
   debug: true
@@ -44,10 +46,10 @@ const getUserInformation = (conv) => {
 
   const name = getName(conv);
 
-  if (!name) {
+  if (!name || name === undefined || name === '') {
     permissions.push('NAME');
   } else {
-    context = context + name.given;
+    context = context + name;
   }
 
   if (conv.user.verification === 'VERIFIED') {
@@ -113,17 +115,6 @@ app.intent('coat query', (conv, {}, confirmationGranted) => {
   }
 });
 
-const queryByCity = (city, callback) => {
-  return new Promise((resolve) => {
-    cityQuery(city).then((response) => {
-      const reply = buildReply(response);
-
-      callback(reply);
-
-      resolve();
-    });
-  });
-};
 
 app.intent('city query', (conv, {city, timeframe}) => {
   return new Promise((resolve) => {
@@ -133,6 +124,10 @@ app.intent('city query', (conv, {city, timeframe}) => {
       const reply = buildReply(response, null, timeframe);
       conv.close(reply);
       resolve();
+    }, (error) => {
+      conv.ask(error.message);
+      prompt(conv);
+      resolve();
     });
   });
 });
@@ -140,7 +135,7 @@ app.intent('city query', (conv, {city, timeframe}) => {
 app.intent('coat query - location', (conv, {city}) => {
   setCity(conv, city);
 
-  const timeframe = getTimeframe(conv) || now;
+  const timeframe = getTimeframe(conv) || NOW;
 
   return new Promise((resolve) => {
     query(getCity(conv), getCoordinates(conv), timeframe).then((response) => {
@@ -171,6 +166,16 @@ app.intent('coat query - time', (conv, {timeframe}) => {
       resolve();
     }, (error) => {
       conv.ask(error.message);
+      prompt(conv);
+      resolve();
+    });
+  });
+});
+
+app.intent('call me chuck', (conv) => {
+  return new Promise((resolve) => {
+    chuckQuery().then((response) => {
+      conv.ask(response.fact);
       prompt(conv);
       resolve();
     });

@@ -1,6 +1,7 @@
 const fetch = require('node-fetch');
 
 const API_LOCATION = 'https://coat-node-coat.appspot.com/api/lookup';
+const CHUCK_API_LOCATION = 'https://coat-node-coat.appspot.com/chuck';
 
 const NOW = 'now';
 const LATER = 'later';
@@ -40,6 +41,10 @@ async function get(url) {
   return json;
 }
 
+async function chuckQuery() {
+  return await get(CHUCK_API_LOCATION);
+}
+
 async function locationQuery(lng, lat) {
   const url = `${API_LOCATION}?lon=${lng}&lat=${lat}`;
 
@@ -64,7 +69,13 @@ const transformResponse = (response, day) => {
 };
 
 async function query(city, coordinates, timeframe = NOW) {
-  const tf = timeframe.toLowerCase();
+  let tf;
+
+  if (timeframe == undefined || timeframe === null || timeframe === '') {
+    tf = NOW;
+  } else {
+    tf = timeframe.toLowerCase();
+  }
 
   if (NOW === tf) {
     if (city) {
@@ -73,8 +84,6 @@ async function query(city, coordinates, timeframe = NOW) {
       return await locationQuery(coordinates.longitude, coordinates.latitude);
     }
   }
-
-  console.info(`Timeframe specified as ${tf}`);
 
   if (tf !== LATER && tf !== TOMORROW && !DAYS.includes(tf)) {
     throw new Error(`I don't know what you mean by ${tf}`);
@@ -107,6 +116,7 @@ async function query(city, coordinates, timeframe = NOW) {
 };
 
 module.exports = {
+  chuckQuery,
   query,
   cityQuery,
   locationQuery

@@ -1,0 +1,55 @@
+[debug] [2019-09-11T06:31:07.427Z] ----------------------------------------------------------------------
+[debug] [2019-09-11T06:31:07.429Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy --project coat-node-coat
+[debug] [2019-09-11T06:31:07.430Z] CLI Version:   7.3.1
+[debug] [2019-09-11T06:31:07.430Z] Platform:      linux
+[debug] [2019-09-11T06:31:07.430Z] Node Version:  v12.3.1
+[debug] [2019-09-11T06:31:07.430Z] Time:          Wed Sep 11 2019 07:31:07 GMT+0100 (Irish Standard Time)
+[debug] [2019-09-11T06:31:07.430Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2019-09-11T06:31:07.435Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-09-11T06:31:07.435Z] > authorizing via signed-in user
+[debug] [2019-09-11T06:31:07.435Z] [iam] checking project coat-node-coat for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[debug] [2019-09-11T06:31:07.437Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/coat-node-coat:testIamPermissions  
+
+[debug] [2019-09-11T06:31:08.212Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'coat-node-coat'...
+[info] 
+[info] i  deploying functions
+[debug] [2019-09-11T06:31:10.531Z] > [functions] package.json contents: {
+  "name": "dialogflowFirebaseFulfillment",
+  "description": "This is the default fulfillment for a Dialogflow agents using Cloud Functions for Firebase",
+  "version": "0.0.1",
+  "private": true,
+  "license": "Apache Version 2.0",
+  "author": "Google Inc.",
+  "engines": {
+    "node": "8"
+  },
+  "scripts": {
+    "start": "firebase serve --only functions:dialogflowFirebaseFulfillment",
+    "deploy": "firebase deploy --only functions:dialogflowFirebaseFulfillment"
+  },
+  "dependencies": {
+    "actions-on-google": "^2.2.0",
+    "dialogflow": "^0.6.0",
+    "dialogflow-fulfillment": "^0.5.0",
+    "firebase-admin": "^5.13.1",
+    "firebase-functions": "^3.2.0",
+    "node-fetch": "^2.6.0"
+  }
+}
+[info] i  functions: ensuring necessary APIs are enabled...
+[debug] [2019-09-11T06:31:10.532Z] >>> HTTP REQUEST GET https://serviceusage.googleapis.com/v1/projects/coat-node-coat/services/cloudfunctions.googleapis.com  
+ 
+[debug] [2019-09-11T06:31:10.533Z] >>> HTTP REQUEST GET https://serviceusage.googleapis.com/v1/projects/coat-node-coat/services/runtimeconfig.googleapis.com  
+ 
+[debug] [2019-09-11T06:31:11.358Z] <<< HTTP RESPONSE 200
+[debug] [2019-09-11T06:31:11.367Z] <<< HTTP RESPONSE 200
+[info] ✔  functions: all necessary APIs are enabled
+[debug] [2019-09-11T06:31:11.372Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/coat-node-coat/adminSdkConfig  
+ 
+[debug] [2019-09-11T06:31:11.598Z] <<< HTTP RESPONSE 200
+[info] i  functions: preparing functions directory for uploading...
+[debug] [2019-09-11T06:31:11.609Z] >>> HTTP REQUEST GET https://runtimeconfig.googleapis.com/v1beta1/projects/coat-node-coat/configs  
+ 

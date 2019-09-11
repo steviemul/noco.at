@@ -7,6 +7,7 @@ const generateResults = require('./results');
 const security = require('./security');
 const request = require('./request');
 const watch = require('./watch');
+const randomQuote = require('./chuck');
 
 const KEYS = security.genKeys();
 
@@ -27,6 +28,10 @@ const createServer = (activeModel) => {
     const data = model.retrieve(req.query.format || 'json');
 
     res.send(data);
+  });
+
+  app.get('/chuck', (req, res) => {
+    res.send(randomQuote());
   });
 
   app.post('/api/correction', (req, res) => {
