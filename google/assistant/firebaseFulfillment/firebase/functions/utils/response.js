@@ -1,3 +1,5 @@
+const template = require('./template');
+
 const DAYS = [
   'sunday',
   'monday',
@@ -8,11 +10,16 @@ const DAYS = [
   'saturday'
 ];
 
+const GREETING_TEMPLATES = [
+  'Hi {0}. ',
+  'Hello {0}. '
+];
+
 const buildReply = (response, name, timeframe) => {
   let reply = '';
 
   if (name) {
-    reply += `Hi ${name}.`;
+    reply += template.random(GREETING_TEMPLATES, name);
   }
 
   if (response.item.result.label === 'coat') {
@@ -31,7 +38,7 @@ const buildReply = (response, name, timeframe) => {
     }
   }
 
-  reply = reply + '.';
+  reply = reply + '. ';
 
   return reply;
 };

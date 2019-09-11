@@ -13,8 +13,9 @@
   ],
   "env": {
     "node": true,
-    "es6": true
-  },
+    "es6": true,
+    "jest": true
+  },  
   "rules" : {
     "comma-dangle":"off",
     "max-len":"off",
