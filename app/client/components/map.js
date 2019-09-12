@@ -52,6 +52,14 @@ class MapContainer extends React.Component {
     this.lookup = this.lookup.bind(this);
     this.sendCorrection = this.sendCorrection.bind(this);
     this.saveMarker = this.saveMarker.bind(this);
+    this.setLocation = this.setLocation.bind(this);
+  }
+
+  setLocation(lon, lat) {
+     const myLatlng = new google.maps.LatLng(lat, lon);
+     this.map.setCenter(myLatlng);
+     this.props.updateCoords(lon, lat);
+     this.lookup(lon, lat);
   }
 
   initMap() {
@@ -61,12 +69,22 @@ class MapContainer extends React.Component {
       gestureHandling: 'greedy'
     });
 
-    if (navigator.geolocation) {
+    const searchParmas = new URL(document.location).searchParams;
+
+    if (searchParmas.get('city')) {
+      const geocoder = new google.maps.Geocoder();
+
+      geocoder.geocode({address: searchParmas.get('city')}, (results, status) => {
+        if (status === 'OK') {
+          this.setLocation(
+            results[0].geometry.location.lng(),
+            results[0].geometry.location.lat()
+          );
+        }
+      });
+    } else if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition( (position) => {
-        const myLatlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-        this.map.setCenter(myLatlng);
-        this.props.updateCoords(position.coords.longitude, position.coords.latitude);
-        this.lookup(position.coords.longitude, position.coords.latitude);
+        this.setLocation(position.coords.longitude, position.coords.latitude);
       });
     }
 

@@ -15,6 +15,14 @@ const GREETING_TEMPLATES = [
   'Hello {0}. '
 ];
 
+const NO_COAT_RESPONSES = [
+  'You should wear a coat in {0} '
+];
+
+const COAT_RESPONSES = [
+  'You don\'t need a coat in {0} '
+];
+
 const buildReply = (response, name, timeframe) => {
   let reply = '';
 
@@ -23,12 +31,10 @@ const buildReply = (response, name, timeframe) => {
   }
 
   if (response.item.result.label === 'coat') {
-    reply = reply + 'You should wear a coat ';
+    reply = reply + template.random(COAT_RESPONSES, response.query.city);
   } else {
-    reply = reply + 'You don\'t need a coat ';
+    reply = reply + template.random(NO_COAT_RESPONSES, response.query.city);
   }
-
-  reply = reply + `in ${response.query.city} `;
 
   if (timeframe) {
     if (DAYS.includes(timeframe.toLowerCase())) {
