@@ -17,7 +17,7 @@ const paramsToObject = (query) => {
   const errors = [];
 
   const tolerance = parseInt(query.n || 2);
-  const activity = 0;
+  const activity = parseInt(query.a || 1);
 
   for (const param of [PARAM_TEMP, PARAM_WIND, PARAM_RAIN, PARAM_HUMIDITY]) {
     if (!query[param]) {

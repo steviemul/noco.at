@@ -10,6 +10,7 @@ class Settings extends React.Component {
     this.updateSaveOption = this.updateSaveOption.bind(this);
     this.updateTemperaturePreferences = this.updateTemperaturePreferences.bind(this);
     this.updateForecastPreferences = this.updateForecastPreferences.bind(this);
+    this.updateActivity = this.updateActivity.bind(this);
   }
 
   componentDidMount() {
@@ -21,7 +22,8 @@ class Settings extends React.Component {
     this.props.updatePreferences(
       event.target.checked,
       this.props.temperaturePreferences,
-      this.props.forecastPreferences
+      this.props.forecastPreferences,
+      this.props.activity
     );
   }
 
@@ -29,7 +31,8 @@ class Settings extends React.Component {
     this.props.updatePreferences(
       this.props.saveMarkers,
       event.target.value,
-      this.props.forecastPreferences
+      this.props.forecastPreferences,
+      this.props.activity
     );
   }
 
@@ -37,6 +40,16 @@ class Settings extends React.Component {
     this.props.updatePreferences(
       this.props.saveMarkers,
       this.props.temperaturePreferences,
+      event.target.value,
+      this.props.activity
+    );
+  }
+
+  updateActivity(event) {
+    this.props.updatePreferences(
+      this.props.saveMarkers,
+      this.props.temperaturePreferences,
+      this.props.forecastPreferences,
       event.target.value
     );
   }
@@ -71,6 +84,16 @@ class Settings extends React.Component {
             </div>
             <div className="input-field col s12">
               <div className="select-wrapper">
+                <select value={this.props.activity} onChange={this.updateActivity}>
+                  <option value="1">Not active</option>
+                  <option value="2">Moderately Active</option>
+                  <option value="3">Very Active</option>
+                </select>
+              </div>
+              <label>Current Activity Level</label>
+            </div>
+            <div className="input-field col s12">
+              <div className="select-wrapper">
                 <select value={this.props.forecastPreferences} onChange={this.updateForecastPreferences}>
                   <option value="1">Today</option>
                   <option value="2">Today and Tomorrow</option>
@@ -81,6 +104,7 @@ class Settings extends React.Component {
               </div>
               <label>Forecast Preferences</label>
             </div>
+
             <div className="input-field col s12">
               <button className="btn waves-effect waves-light" onClick={this.clearMarkers}>Clear Markers
                 <i className="material-icons right">delete</i>
@@ -96,6 +120,7 @@ class Settings extends React.Component {
 Settings.propTypes = {
   saveMarkers: PropTypes.bool.isRequired,
   temperaturePreferences: PropTypes.any.isRequired,
+  activity: PropTypes.any.isRequired,
   forecastPreferences: PropTypes.any.isRequired,
   updatePreferences: PropTypes.func.isRequired
 };

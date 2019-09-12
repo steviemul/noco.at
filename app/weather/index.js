@@ -70,7 +70,7 @@ const filterOnDay = (items, day) => {
   });
 };
 
-const transformItem = (item, tolerance) => {
+const transformItem = (item, tolerance, activity = 1) => {
   return {
     temperature: parseInt(item.main.temp),
     windspeed: parseInt(item.wind.speed * SPEED_CONVERSION),
@@ -78,6 +78,7 @@ const transformItem = (item, tolerance) => {
     weather: item.weather,
     humidity: item.main.humidity,
     tolerance,
+    activity,
     dt: item.dt
   };
 };
@@ -94,6 +95,7 @@ async function lookup(req) {
   const type = req.query.type || 'current';
   const city = req.query.city;
   const tolerance = req.query.n || 2;
+  const activity = req.query.a || 1;
 
   const apiPath = (type === 'current' ? CURRENT_API_PATH : FORECAST_API_PATH);
 
@@ -112,10 +114,10 @@ async function lookup(req) {
 
   const result = (type === 'current') ?
     {
-      'item': transformItem(json, tolerance)
+      'item': transformItem(json, tolerance, activity)
     } :
     {
-      'items': json.list.map((item) => transformItem(item, tolerance))
+      'items': json.list.map((item) => transformItem(item, tolerance, activity))
     };
 
   if (result.items) {

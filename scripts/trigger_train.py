@@ -14,7 +14,7 @@ WINDSPEED_THRESHOLD = 40
 
 ITEMS = []
 
-for n in range(0, 60):
+for n in range(0, 100):
   for i in range(-50, 50):
     threshold = TEMP_THRESHOLD
 
@@ -22,7 +22,7 @@ for n in range(0, 60):
     windspeed = random.randint(0, 100)
     humidity = random.randint(0, 100)
     tolerance = random.randint(1, 4);
-    activity = random.randint(0, 3);
+    activity = random.randint(1, 3);
 
     if rain == 1:
       threshold = RAIN_THRESHOLD
@@ -35,14 +35,24 @@ for n in range(0, 60):
       humidity_adjustment = (humidity - HUMIDITY_THRESHOLD) / 10;
       threshold = threshold - humidity_adjustment
 
+    # don't like the cold
     if tolerance == 1:
       threshold = threshold + 2
+    
+    # neutral
     elif tolerance == 2:
       threshold = threshold + 0
+
+    # don't mind the cold
     elif tolerance == 3:
       threshold = threshold - 2
+    
+    # su]er human
     elif tolerance == 4:
       threshold = -50
+
+    if activity > 1:
+      threshold = threshold - activity
 
     result = 1
 

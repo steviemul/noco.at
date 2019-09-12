@@ -13,7 +13,8 @@ const getPreferences = () => {
   const defaults = {
     saveMarkers: false,
     temperaturePreferences: 2,
-    forecastPreferences: 1
+    forecastPreferences: 1,
+    activity: 1
   };
 
   if (preferences) {
@@ -30,7 +31,8 @@ const savePreferences = (values) => {
   const preferences = {
     saveMarkers: values.saveMarkers || false,
     temperaturePreferences: values.temperaturePreferences || 2,
-    forecastPreferences: values.forecastPreferences || 1
+    forecastPreferences: values.forecastPreferences || 1,
+    activity: values.activity || 1
   };
 
   localStorage.setItem(PREFERENCES_KEY, JSON.stringify(preferences));
@@ -50,12 +52,13 @@ class Container extends React.Component {
     this.updatePreferences = this.updatePreferences.bind(this);
   }
 
-  updatePreferences(saveMarkers, temperaturePreferences, forecastPreferences) {
+  updatePreferences(saveMarkers, temperaturePreferences, forecastPreferences, activity) {
     this.setState({
       ...this.state,
       saveMarkers,
       temperaturePreferences,
-      forecastPreferences
+      forecastPreferences,
+      activity
     }, () => {
       savePreferences(this.state);
     });
@@ -99,6 +102,7 @@ class Container extends React.Component {
               lat={this.state.lat}
               saveMarkers={this.state.saveMarkers}
               temperaturePreferences={this.state.temperaturePreferences}
+              activity={this.state.activity}
               updateCoords={this.updateCoords} />}
           />
 
@@ -120,6 +124,7 @@ class Container extends React.Component {
               saveMarkers={this.state.saveMarkers}
               forecastPreferences={this.state.forecastPreferences}
               temperaturePreferences={this.state.temperaturePreferences}
+              activity={this.state.activity}
               updateCoords={this.updateCoords}
               updatePreferences={this.updatePreferences}/>}
           />
