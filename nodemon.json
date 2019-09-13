@@ -1,0 +1,11 @@
+{
+  "watch": [
+    "app/"
+  ],
+  "ignore": [
+    "app/client",
+    "app/json",
+    "app/static"
+  ],
+  "delat": 2500
+}

@@ -47,8 +47,11 @@ const filterOnTimeframe = (items, timeframe) => {
 
   return items.filter((item) => {
     const date = new Date(item.dt * 1000);
+    let itemDay = date.getDay();
 
-    return (date.getDay() <= threshold);
+    if (itemDay < day) itemDay += 7;
+
+    return (itemDay <= threshold);
   });
 };
 

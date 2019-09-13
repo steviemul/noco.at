@@ -27,13 +27,14 @@
     "husky": "^3.0.5",
     "jest": "^24.9.0",
     "jest-extended": "^0.11.2",
+    "nodemon": "^1.19.2",
     "webpack": "^4.39.1",
     "webpack-cli": "^3.3.6"
   },
   "scripts": {
     "lint": "eslint .",
     "start": "node server.js",
-    "debug": "node --inspect=0.0.0.0 server.js",
+    "debug": "nodemon --inspect=0.0.0.0 server.js",
     "build": "webpack --mode=production",
     "watch": "webpack --watch --mode=development",
     "db": "docker build --build-arg HTTP_PROXY=$HTTP_PROXY --build-arg HTTPS_PROXY=$HTTPS_PROXY --no-cache -t nocoat .",
