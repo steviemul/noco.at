@@ -14,7 +14,7 @@ const addCorrection = (amendment, result) => {
     rain: amendment.rain,
     humidity: amendment.humidity,
     tolerance: amendment.tolerance,
-    activity: 0,
+    activity: amendment.activity,
     result
   };
 

@@ -6,6 +6,7 @@
   "author": "steviemul <stephen.mulrennan@ntlworld.com>",
   "license": "MIT",
   "dependencies": {
+    "@google-cloud/firestore": "^2.3.0",
     "@tensorflow/tfjs-node": "^1.2.8",
     "express": "^4.17.1",
     "generate-password": "^1.4.2",
