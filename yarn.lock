@@ -1376,6 +1376,14 @@ asn1.js@^4.0.0:
     inherits "^2.0.1"
     minimalistic-assert "^1.0.0"
 
+asn1.js@^5.0.0:
+  version "5.2.0"
+  resolved "https://registry.yarnpkg.com/asn1.js/-/asn1.js-5.2.0.tgz#292c0357f26a47802ac9727e8772c09c7fc9bd85"
+  dependencies:
+    bn.js "^4.0.0"
+    inherits "^2.0.1"
+    minimalistic-assert "^1.0.0"
+
 asn1@~0.2.3:
   version "0.2.4"
   resolved "https://registry.yarnpkg.com/asn1/-/asn1-0.2.4.tgz#8d2475dfab553bb33e77b54e59e880bb8ce23136"
@@ -3222,6 +3230,12 @@ http-signature@~1.2.0:
     jsprim "^1.2.2"
     sshpk "^1.7.0"
 
+http_ece@1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/http_ece/-/http_ece-1.1.0.tgz#74780c6eb32d8ddfe9e36a83abcd81fe0cd4fb75"
+  dependencies:
+    urlsafe-base64 "~1.0.0"
+
 https-browserify@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/https-browserify/-/https-browserify-1.0.0.tgz#ec06c10e0a34c0f2faf199f7fd7fc78fffd03c73"
@@ -4121,7 +4135,7 @@ jwa@^1.4.1:
     ecdsa-sig-formatter "1.0.11"
     safe-buffer "^5.0.1"
 
-jws@^3.1.5, jws@^3.2.2:
+jws@^3.1.3, jws@^3.1.5, jws@^3.2.2:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/jws/-/jws-3.2.2.tgz#001099f3639468c9414000e99995fa52fb478304"
   dependencies:
@@ -6437,6 +6451,10 @@ url@^0.11.0:
     punycode "1.3.2"
     querystring "0.2.0"
 
+urlsafe-base64@^1.0.0, urlsafe-base64@~1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/urlsafe-base64/-/urlsafe-base64-1.0.0.tgz#23f89069a6c62f46cf3a1d3b00169cefb90be0c6"
+
 use@^3.1.0:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/use/-/use-3.1.1.tgz#d50c8cac79a19fbc20f2911f56eb973f4e10070f"
@@ -6526,6 +6544,17 @@ watchpack@^1.6.0:
     chokidar "^2.0.2"
     graceful-fs "^4.1.2"
     neo-async "^2.5.0"
+
+web-push@^3.3.5:
+  version "3.3.5"
+  resolved "https://registry.yarnpkg.com/web-push/-/web-push-3.3.5.tgz#4d35f88bd2f109497b14abb5f0729f9c2ee477a2"
+  dependencies:
+    asn1.js "^5.0.0"
+    http_ece "1.1.0"
+    https-proxy-agent "^2.2.1"
+    jws "^3.1.3"
+    minimist "^1.2.0"
+    urlsafe-base64 "^1.0.0"
 
 webidl-conversions@^4.0.2:
   version "4.0.2"

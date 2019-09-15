@@ -15,10 +15,12 @@
     "node-fetch": "^2.6.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-router-dom": "^5.0.1"
+    "react-router-dom": "^5.0.1",
+    "web-push": "^3.3.5"
   },
   "devDependencies": {
     "@babel/core": "^7.5.5",
+    "@babel/plugin-transform-regenerator": "^7.4.5",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.6",
@@ -40,7 +42,9 @@
     "watch": "webpack --watch --mode=development",
     "db": "docker build --build-arg HTTP_PROXY=$HTTP_PROXY --build-arg HTTPS_PROXY=$HTTPS_PROXY --no-cache -t nocoat .",
     "dr": "docker run -p 8000:8000 -p 9229:9229 -e HTTP_PROXY=$HTTP_PROXY -e HTTPS_PROXY=$HTTPS_PROXY nocoat",
-    "test": "jest"
+    "test": "jest",
+    "gen-push-keys": "web-push generate-vapid-keys --json",
+    "sql": "./scripts/cloud_sql_proxy -instances=coat-node-coat:europe-west1:cnc=tcp:3307 -credential_file=.private/cnc-sql-2af68dda4c2e.json"
   },
   "husky": {
     "hooks": {

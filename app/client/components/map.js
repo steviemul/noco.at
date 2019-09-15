@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {add as addSubscription} from '../subscriptions';
+import {available as subscriptionsAvailable} from '../subscriptions';
 
 const icon = (title, icon) => {
   const url = `https://openweathermap.org/img/wn/${icon}.png`;
@@ -53,6 +55,7 @@ class MapContainer extends React.Component {
     this.sendCorrection = this.sendCorrection.bind(this);
     this.saveMarker = this.saveMarker.bind(this);
     this.setLocation = this.setLocation.bind(this);
+    this.subscribe = this.subscribe.bind(this);
   }
 
   setLocation(lon, lat) {
@@ -176,6 +179,10 @@ class MapContainer extends React.Component {
     });
   }
 
+  subscribe() {
+    addSubscription(this.state);
+  }
+
   componentDidMount() {
     this.initMap();
   }
@@ -201,8 +208,21 @@ class MapContainer extends React.Component {
               </table>
             </div>
             <div className="card-action z-depth-5">
-              <a href="#" onClick={this.reset}>Close</a>
-              <a href="#" onClick={this.sendCorrection}>Correct this prediction</a>
+              <div className="row">
+                <div className="col s4">
+                  <a href="#" onClick={this.reset}>Close</a>
+                </div>
+                {subscriptionsAvailable() && (
+                  <div className="col s8">
+                  <a href="#" onClick={this.subscribe}>Notify Me</a>
+                </div>) || null}
+
+              </div>
+              <div className="row">
+                <div className="col s12">
+                  <a href="#" onClick={this.sendCorrection}>Correct this prediction</a>
+                </div>
+              </div>
             </div>
           </div>
           ) || null}

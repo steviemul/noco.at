@@ -9,7 +9,7 @@ const addTokenToLookupRequest = (payload, keys) => {
       passphrase
     }, {
       algorithm: 'RS256',
-      expiresIn: 600000
+      expiresIn: 60
     });
 
     payload.token = token;

@@ -53,3 +53,24 @@ self.addEventListener('fetch', (e) => {
     );
   }
 });
+
+self.addEventListener('push', (e) => {
+  if (!Notification || Notification.permission !== 'granted') {
+    return;
+  }
+
+  self.registration.showNotification('Coat / No Coat', {
+    actions: [
+      {
+        title: 'Unsubcsribe',
+        action: 'unsubcsribe'
+      }
+    ],
+    body: e.data.text(),
+    icon: 'https://openweathermap.org/img/wn/02d.png'
+  });
+});
+
+self.addEventListener('notificationclick', (e) => {
+  console.log(e);
+});

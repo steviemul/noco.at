@@ -8,6 +8,7 @@ const security = require('./security');
 const request = require('./request');
 const watch = require('./watch');
 const randomQuote = require('./chuck');
+const processSubscription = require('./subscription');
 
 const KEYS = security.genKeys();
 
@@ -37,16 +38,43 @@ const createServer = (activeModel) => {
   app.post('/api/correction', (req, res) => {
     const body = req.body;
 
-    const verifiedContent = request.verifyRequest(body.token, KEYS);
+    try {
+      const verifiedContent = request.verifyRequest(body.token, KEYS);
 
-    const correction = body.item.result.label === 'coat' ? 0 : 1;
+      const correction = body.item.result.label === 'coat' ? 0 : 1;
 
-    model.correct(verifiedContent, correction);
+      model.correct(verifiedContent, correction);
 
-    res.status(202);
-    res.send({
-      status: 'Correction accepted'
-    });
+      res.status(202);
+      res.send({
+        status: 'Correction accepted'
+      });
+    } catch (e) {
+      res.status(400);
+      res.send({
+        status: 'Invalid Request'
+      });
+    }
+  });
+
+  app.post('/api/subscriptions', (req, res) => {
+    const body = req.body;
+
+    try {
+      const verifiedContent = request.verifyRequest(body.token, KEYS);
+
+      processSubscription(body, verifiedContent);
+
+      res.status(202);
+      res.send({
+        status: 'Subscription accepted'
+      });
+    } catch (e) {
+      res.status(400);
+      res.send({
+        status: 'Invalid request'
+      });
+    }
   });
 
   app.get('/api/prediction', (req, res) => {
@@ -82,6 +110,7 @@ const createServer = (activeModel) => {
   app.use('/', express.static(path.join(__dirname, '../static')));
 
   watch(updateModel);
+
 
   return app;
 };
