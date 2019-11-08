@@ -8,7 +8,7 @@ const security = require('./security');
 const request = require('./request');
 const watch = require('./watch');
 const randomQuote = require('./chuck');
-const processSubscription = require('./subscription');
+const {saveSubscription} = require('./subscription');
 
 const KEYS = security.genKeys();
 
@@ -63,7 +63,7 @@ const createServer = (activeModel) => {
     try {
       const verifiedContent = request.verifyRequest(body.token, KEYS);
 
-      processSubscription(body, verifiedContent);
+      saveSubscription(body, verifiedContent);
 
       res.status(202);
       res.send({

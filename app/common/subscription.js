@@ -1,6 +1,7 @@
-const fs = require('fs');
+const fs = require('fs-extra');
 const path = require('path');
 const webpush = require('web-push');
+const crypto = require('crypto');
 
 const privateKey = fs.readFileSync(path.join(__dirname, '../', '../', '.private', 'push.private'), 'utf8');
 const publicKey = fs.readFileSync(path.join(__dirname, '../', 'static', 'push.public'), 'utf8');
@@ -11,6 +12,14 @@ webpush.setVapidDetails(
   publicKey,
   privateKey
 );
+
+const createFilename = (content) => {
+  const hash = crypto.createHash('md5');
+
+  hash.update(content);
+
+  return hash.digest('hex');
+};
 
 async function process(details) {
   try {
@@ -25,4 +34,33 @@ async function process(details) {
   }
 };
 
-module.exports = process;
+const updateSubscriptionStatus = (subscription) => {
+  return {
+    ...subscription,
+    status: {
+      lastProcessed: new Date(),
+      processed: false
+    }
+  };
+};
+
+async function saveSubscription(details, content) {
+  const outputLocation = path.join(__dirname, '../', '../', '.subscriptions');
+
+  fs.ensureDirSync(outputLocation);
+
+  const subscription = updateSubscriptionStatus({
+    details,
+    content
+  });
+
+  const filename = createFilename(JSON.stringify(subscription)) + '.json';
+  const subscriptionLocation = path.join(outputLocation, filename);
+
+  fs.writeFile(subscriptionLocation, JSON.stringify(subscription, null, 2), 'utf8');
+};
+
+module.exports = {
+  process,
+  saveSubscription
+};

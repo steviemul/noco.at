@@ -9,6 +9,7 @@
     "@google-cloud/firestore": "^2.3.0",
     "@tensorflow/tfjs-node": "^1.2.8",
     "express": "^4.17.1",
+    "fs-extra": "^8.1.0",
     "generate-password": "^1.4.2",
     "https-proxy-agent": "^2.2.2",
     "jsonwebtoken": "^8.5.1",
