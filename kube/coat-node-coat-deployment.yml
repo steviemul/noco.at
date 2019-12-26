@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: coat-node-coat
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: coat-node-coat
+  template:
+    metadata:
+      labels:
+        run: coat-node-coat
+    spec:
+      containers:
+      - image: coat-node-coat:0.0.1
+        imagePullPolicy: Never
+        name: coat-node-coat
+        ports:
+        - containerPort: 8000
+          protocol: TCP

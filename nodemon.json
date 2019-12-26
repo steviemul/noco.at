@@ -7,5 +7,5 @@
     "app/json",
     "app/static"
   ],
-  "delat": 2500
+  "delay": 2500
 }

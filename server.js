@@ -1,5 +1,8 @@
 const model = require('./app/tf/model');
 const {createServer} = require('./app/common/server');
+const https = require('https');
+const fs = require('fs');
+const path = require('path');
 
 // Listen to the App Engine-specified port, or 8080 otherwise
 const PORT = process.env.PORT || 8000;
@@ -13,6 +16,14 @@ async function start() {
 
   app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}...`);
+  });
+
+  https.createServer({
+    key: fs.readFileSync('./.private/key.pem'),
+    cert: fs.readFileSync('./.private/cert.pem'),
+    passphrase: 'password'
+  }, app).listen(8443, () => {
+    console.log(`Server listening on port 8443...`);
   });
 }
 

@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: "2019-12-26T11:23:06Z"
+  labels:
+    run: coat-node-coat
+  name: coat-node-coat
+  namespace: default
+  resourceVersion: "14761"
+  selfLink: /api/v1/namespaces/default/services/coat-node-coat
+  uid: 8b013bb2-743b-493b-b611-09ee7e4adf5a
+spec:
+  clusterIP: 10.109.16.93
+  externalTrafficPolicy: Cluster
+  ports:
+  - nodePort: 31523
+    port: 8000
+    protocol: TCP
+    targetPort: 8000
+  selector:
+    run: coat-node-coat
+  sessionAffinity: None
+  type: NodePort
+status:
+  loadBalancer: {}
