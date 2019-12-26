@@ -24,6 +24,7 @@
     "@babel/plugin-transform-regenerator": "^7.4.5",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
+    "@ljharb/eslint-config": "^15.1.0",
     "babel-loader": "^8.0.6",
     "eslint": "^4.19.0",
     "eslint-config-google": "^0.9.1",

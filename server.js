@@ -2,7 +2,6 @@ const model = require('./app/tf/model');
 const {createServer} = require('./app/common/server');
 const https = require('https');
 const fs = require('fs');
-const path = require('path');
 
 // Listen to the App Engine-specified port, or 8080 otherwise
 const PORT = process.env.PORT || 8000;
