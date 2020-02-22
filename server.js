@@ -2,9 +2,11 @@ const model = require('./app/tf/model');
 const {createServer} = require('./app/common/server');
 const https = require('https');
 const fs = require('fs');
+const cluster = require('cluster');
 
 // Listen to the App Engine-specified port, or 8080 otherwise
 const PORT = process.env.PORT || 8000;
+
 
 async function start() {
   // load out saved tensorflow model.
@@ -26,4 +28,13 @@ async function start() {
   });
 }
 
-start();
+if (cluster.isMaster) {
+  const cpuCount = require('os').cpus().length;
+
+  for (let i=0; i<cpuCount; i++) {
+    cluster.fork();
+  }
+} else {
+  start();
+}
+
