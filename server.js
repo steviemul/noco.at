@@ -18,9 +18,8 @@ async function start() {
   });
 
   https.createServer({
-    key: fs.readFileSync('./.private/key.pem'),
-    cert: fs.readFileSync('./.private/cert.pem'),
-    passphrase: 'password'
+    key: fs.readFileSync('./.private/cert.key'),
+    cert: fs.readFileSync('./.private/cert.pem')
   }, app).listen(8443, () => {
     console.log(`Server listening on port 8443...`);
   });

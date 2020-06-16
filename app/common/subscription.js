@@ -58,6 +58,8 @@ async function saveSubscription(details, content) {
   const subscriptionLocation = path.join(outputLocation, filename);
 
   fs.writeFile(subscriptionLocation, JSON.stringify(subscription, null, 2), 'utf8');
+
+  process(details);
 };
 
 module.exports = {

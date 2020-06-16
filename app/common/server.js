@@ -9,6 +9,7 @@ const request = require('./request');
 const watch = require('./watch');
 const randomQuote = require('./chuck');
 const {saveSubscription} = require('./subscription');
+const logger = require('./logger');
 
 const KEYS = security.genKeys();
 
@@ -50,6 +51,8 @@ const createServer = (activeModel) => {
         status: 'Correction accepted'
       });
     } catch (e) {
+      logger.error(e);
+
       res.status(400);
       res.send({
         status: 'Invalid Request'
@@ -70,6 +73,7 @@ const createServer = (activeModel) => {
         status: 'Subscription accepted'
       });
     } catch (e) {
+      logger.error(e);
       res.status(400);
       res.send({
         status: 'Invalid request'
