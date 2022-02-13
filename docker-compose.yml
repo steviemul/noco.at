@@ -1,23 +1,17 @@
 version: '3'
-
+volumes:
+  caddy_data:
+  caddy_config:
 services:
-  nocoat:
-    build: 
-      context: ./
-      args:
-        - http_proxy=${HTTP_PROXY}
-        - https_proxy=${HTTPS_PROXY}
-        - no_proxy=${NO_PROXY}
-    environment:
-      - http_proxy=${HTTP_PROXY}
-      - https_proxy=${HTTPS_PROXY}
-      - no_proxy=${NO_PROXY}
-      - HTTP_PROXY=${HTTP_PROXY}
-      - HTTPS_PROXY=${HTTPS_PROXY}
-      - NO_PROXY=${NO_PROXY}
-      - PORT=10080
+  caddy:
+    image: caddy
+    volumes:
+      - caddy_data:/data
+      - caddy_config:/config
     ports:
-      - 10080:10080
-      - 8443:8443
-      - 9229:9229
-    
+      - 80:80
+      - 443:443
+    command: caddy reverse-proxy --from ${NO_COAT_HOST} --to backend:8000 
+  backend:
+    build:
+      context: .
