@@ -1,4 +1,4 @@
-FROM node:12
+FROM node:14
 
 WORKDIR /noco.at
 
@@ -14,5 +14,7 @@ ADD webpack.config.js /noco.at/webpack.config.js
 ADD app /noco.at/app
 
 RUN npm run build
+
+RUN npm install --production
 
 CMD ["npm", "run", "start"]
