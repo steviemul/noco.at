@@ -82,7 +82,13 @@ const transformItem = (item, tolerance, activity = 1) => {
     humidity: item.main.humidity,
     tolerance,
     activity,
-    dt: item.dt
+    dt: item.dt,
+    local: {
+      timezone: item.timezone,
+      sunrise: item.sys.sunrise,
+      sunset: item.sys.sunset,
+      country: item.sys.country
+    }
   };
 };
 

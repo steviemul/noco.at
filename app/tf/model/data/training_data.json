@@ -90007,5 +90007,14 @@
     "tolerance": "3",
     "activity": "1",
     "result": 0
+  },
+  {
+    "temperature": 11,
+    "windspeed": 8,
+    "rain": 1,
+    "humidity": 93,
+    "tolerance": "2",
+    "activity": "1",
+    "result": 0
   }
 ]

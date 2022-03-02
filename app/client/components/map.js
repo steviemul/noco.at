@@ -11,6 +11,11 @@ const icon = (title, icon) => {
 
 const MARKERS_KEY = 'cnc_markers';
 
+const FORBIDDEN = [
+  'RU',
+  'BY'
+];
+
 const getMarkers = () => {
   const markers = new Set();
 
@@ -56,6 +61,7 @@ class MapContainer extends React.Component {
     this.saveMarker = this.saveMarker.bind(this);
     this.setLocation = this.setLocation.bind(this);
     this.subscribe = this.subscribe.bind(this);
+    this.showUKR = this.showUKR.bind(this);
   }
 
   setLocation(lon, lat) {
@@ -94,6 +100,8 @@ class MapContainer extends React.Component {
     this.map.addListener('click', (location) => {
       const lon = location.latLng.lng();
       const lat = location.latLng.lat();
+
+      console.log(location);
 
       this.lookup(lon, lat);
     });
@@ -187,11 +195,22 @@ class MapContainer extends React.Component {
     this.initMap();
   }
 
+  showUKR() {
+    if (this.state.item !== null) {
+      return FORBIDDEN.includes(this.state.item.data.local.country);
+    }
+
+    return false;
+  }
+
   render() {
     return (
       <div>
         <div className={'map ' + (this.state.item === null ? 'front' : '')} id='map'></div>
-        <div className={'answer ' + (this.state.item !== null ? 'front' : '')} id='answer'>
+        <div className={(this.showUKR() ? 'front' : '')} id='ukr'>
+          <img src='images/ukr.png'></img>
+        </div>
+        <div className={'answer ' + ((this.state.item !== null && !this.showUKR()) ? 'front' : '')} id='answer'>
           {this.state.item && (
             <div className="card blue-grey darken-1">
             <div className="card-content white-text">
