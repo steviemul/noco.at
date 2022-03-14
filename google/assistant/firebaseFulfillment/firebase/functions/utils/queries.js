@@ -1,7 +1,7 @@
 const fetch = require('node-fetch');
 
-const API_LOCATION = 'https://coat-node-coat.appspot.com/api/lookup';
-const CHUCK_API_LOCATION = 'https://coat-node-coat.appspot.com/chuck';
+const API_LOCATION = 'https://noco.at/api/lookup';
+const CHUCK_API_LOCATION = 'https://noco.at/chuck';
 
 const NOW = 'now';
 const LATER = 'later';
